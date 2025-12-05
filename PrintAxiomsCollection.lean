@@ -37,12 +37,12 @@ import Mathlib
 #print axioms Locale
 #print axioms CategoryTheory.ObjectProperty
 #print axioms CategoryTheory.MorphismProperty
-#print axioms CommutatorRing
 #print axioms Filter
 #print axioms ContinuousMap
 #print axioms CategoryTheory.MarkovCategory
 #print axioms CategoryTheory.MonoidalCategory
 #print axioms Decidable
+#print axioms Singleton
 
 
 -- concepts depending on propext
@@ -61,6 +61,7 @@ import Mathlib
 #print axioms Representation
 #print axioms Finset
 #print axioms Cauchy
+#print axioms T3Space
 
 
 -- concepts depending on propext, Quot.sound, Classical.choice
