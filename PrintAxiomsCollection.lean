@@ -43,15 +43,27 @@ import Mathlib
 #print axioms CategoryTheory.MonoidalCategory
 #print axioms Decidable
 #print axioms Singleton
+#print axioms Std.Associative
+#print axioms Std.Commutative
+#print axioms USize
+#print axioms Array
+#print axioms String
+#print axioms MultilinearMap
 
 
 -- concepts depending on propext
+#print axioms propext
 #print axioms Field
 #print axioms FermatLastTheorem
 
-
 -- concepts depending on Quot.sound
+#print axioms Quot.sound
 #print axioms Quotient.sound
+#print axioms funext
+
+
+-- concepts depending on Classical.choice
+#print axioms Classical.choice
 
 
 -- concepts depending on propext, Quot.sound
