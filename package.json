@@ -11,6 +11,6 @@
   "license": "ISC",
   "packageManager": "pnpm@10.24.0",
   "devDependencies": {
-    "@openai/codex": "^0.64.0"
+    "@anthropic-ai/claude-code": "^2.0.65"
   }
 }
