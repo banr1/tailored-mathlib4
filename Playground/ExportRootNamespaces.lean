@@ -120,4 +120,4 @@ def elabExportRootNamespaces : CommandElab := fun stx => do
 -- 最上位レベルだけを見たいときはこちら
 -- #print_root_namespaces
 -- CSV に保存したいときはこちら
--- #export_root_namespaces "root_namespaces.csv"
+#export_root_namespaces "Playground/root_namespaces.csv"

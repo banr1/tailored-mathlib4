@@ -83,6 +83,7 @@ AddRightCancelSemigroup
 AddRightStrictMono
 AddSemiconjBy
 AddSemigroup
+AddSemigroupAction
 AddSemigroupIdeal
 AddSemigroupPEmpty
 AddSemigrp
@@ -642,6 +643,7 @@ DistribMulAction
 DistribMulActionHom
 DistribMulActionSemiHomClass
 DistribSMul
+Distribution
 Distributions
 Div
 DivInvMonoid
@@ -1206,6 +1208,7 @@ IsClosedMap
 IsCoatom
 IsCoatomic
 IsCoatomistic
+IsCodirectedOrder
 IsCoercive
 IsCofinal
 IsCofinalFor
@@ -1242,6 +1245,7 @@ IsDedekindRing
 IsDenseEmbedding
 IsDenseInducing
 IsDirected
+IsDirectedOrder
 IsDiscrete
 IsDiscreteValuationRing
 IsDistinguishedAt
@@ -1249,6 +1253,7 @@ IsDivSequence
 IsDomain
 IsEllDivSequence
 IsEllSequence
+IsEmbedding
 IsEmpty
 IsEquiv
 IsEquivalent
@@ -1336,6 +1341,7 @@ IsLocalMin
 IsLocalMinOn
 IsLocalRing
 IsLocalization
+IsLocalization'
 IsLocalizedModule
 IsLocallyClosed
 IsLocallyConstant
@@ -1602,6 +1608,7 @@ LeftPreLieAlgebra
 LeftPreLieRing
 LefttCancelMonoid
 Lex
+LibraryNote
 LieAddGroup
 LieAdmissibleAlgebra
 LieAdmissibleRing
@@ -2006,6 +2013,7 @@ NucleusClass
 Num
 NumberField
 NumberTheorySymbols
+Numbering
 NzsNum
 ODE
 ONote
@@ -2399,6 +2407,7 @@ SemiconjBy
 SemidirectProduct
 Semifield
 Semigroup
+SemigroupAction
 SemigroupIdeal
 SemigroupPEmpty
 SemigroupWithZero
@@ -3144,7 +3153,6 @@ borel
 botOrderOrNoBotOrder
 bot_codisjoint
 bot_covBy_iff
-bot_le
 bot_lt_affineSpan
 bot_lt_iSup
 bot_lt_top
@@ -3625,6 +3633,7 @@ eventually_eventually_nhds
 eventually_eventually_nhdsWithin
 eventually_mem_nhdsWithin_iff
 eventually_mem_nhds_iff
+eventually_nhdsNE_eventually_nhds_iff
 eventually_nhds_nhdsWithin
 existsUnique_eq
 existsUnique_eq'
@@ -3989,19 +3998,13 @@ infIrred_toDual
 infPrime_iff_infIrred
 infPrime_ofDual
 infPrime_toDual
-inf_eq_left
-inf_eq_right
 inf_eq_sup
 inf_eq_top_iff
 inf_le_bihimp
 inf_le_iff
-inf_le_left
-inf_le_right
 inf_left_le_sup_left
 inf_left_le_sup_right
 inf_lt_iff
-inf_lt_left
-inf_lt_right
 inf_lt_sup
 inf_right_le_sup_left
 inf_right_le_sup_right
@@ -4405,6 +4408,7 @@ instMonoidalLightProfiniteLightCondSetLightProfiniteToLightCondSet
 instMulActionElemFixedPointsSubtypeMemSubgroupOfNormal
 instMulActionRay
 instMulActionRayVector
+instMulActionSubtypeGeneralLinearGroupFinOfNatNatRealMemSubgroupQuotientSubgroupOf
 instMulActionSubtypeMemSubgroupStabilizerSetElem
 instMulColex
 instMulHomogeneousIdeal
@@ -4683,8 +4687,6 @@ isAtomic_dual_iff_isCoatomic
 isAtomistic_dual_iff_isCoatomistic
 isBinaryCoproductOfIsInitialIsPushout
 isBinaryProductOfIsTerminalIsPullback
-isBot_bot
-isBot_iff_eq_bot
 isBot_ofDual_iff
 isBot_toDual_iff
 isBounded_convexHull
@@ -4781,9 +4783,7 @@ isLowerSet_setOf
 isMax_grade_iff
 isMax_iff_eq_top
 isMax_top
-isMin_bot
 isMin_grade_iff
-isMin_iff_eq_bot
 isMin_ofDual_iff
 isMin_toDual_iff
 isMulFreimanHom_empty
@@ -4926,13 +4926,11 @@ lcm_eq_zero_iff
 leOnePart_eq_inv
 leOnePart_eq_one
 leOnePart_lt
-le_bot_iff
 le_compl_self
 le_div_self_iff
 le_floorDiv_iff_smul_le
 le_himp_iff
 le_iInf_iff
-le_inf_iff
 le_inv_mul_iff_mul_le
 le_inv_self_iff
 le_isUnit_iff_zero_notMem
@@ -4963,7 +4961,6 @@ leansearch
 leansearchclient
 leftTotal_empty
 left_eq_dite_iff
-left_eq_inf
 left_eq_ite_iff
 left_eq_midpoint_iff
 left_eq_mul
@@ -5428,7 +5425,6 @@ not_and
 not_and_self
 not_bddAbove_univ
 not_bddBelow_univ
-not_bot_lt_iff
 not_countable
 not_countable_iff
 not_exists
@@ -5456,7 +5452,6 @@ not_isMin_iff
 not_isSquare_of_neg
 not_le
 not_lt
-not_lt_bot
 not_lt_of_subsingleton
 not_lt_one
 not_lt_top_iff
@@ -5704,7 +5699,6 @@ rieszContent
 rieszContentAux
 rightTotal_empty
 right_eq_dite_iff
-right_eq_inf
 right_eq_ite_iff
 right_eq_midpoint_iff
 right_eq_mul
@@ -6080,7 +6074,6 @@ topToCompHaus
 topToPreord
 top_disjoint
 top_le_iff
-top_ne_bot
 topologicalNilradical
 torusIntegral
 torusMap

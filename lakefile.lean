@@ -85,6 +85,10 @@ lean_lib MathlibTest where
   globs := #[.submodules `MathlibTest]
   leanOptions := #[⟨`experimental.module, true⟩]
 
+lean_lib Playground where
+  globs := #[.submodules `Playground]
+  leanOptions := #[⟨`experimental.module, true⟩]
+
 lean_lib Archive where
   leanOptions := mathlibLeanOptions
 
