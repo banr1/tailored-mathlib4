@@ -1241,6 +1241,8 @@ IsCyclotomicExtension
 IsDedekindDomain
 IsDedekindDomainDvr
 IsDedekindDomainInv
+IsDedekindFiniteAddMonoid
+IsDedekindFiniteMonoid
 IsDedekindRing
 IsDenseEmbedding
 IsDenseInducing
@@ -1485,6 +1487,7 @@ IsStrictlyPositive
 IsStrongAntichain
 IsStronglyAtomic
 IsStronglyCoatomic
+IsStronglyTranscendental
 IsSublattice
 IsSuccArchimedean
 IsSumSq
@@ -2662,6 +2665,7 @@ TangentBundle
 TangentSpace
 TannakaDuality
 Task
+TemperedDistribution
 Tendsto
 TendstoLocallyUniformly
 TendstoLocallyUniformlyOn
@@ -3617,7 +3621,6 @@ equicontinuous_empty
 equivIsoIso
 equivOfPiLEquivPi
 equivOfSubsingletonOfSubsingleton
-equivQuotMaximalIdealOfIsLocalization
 equivShrink
 equivTangentBundleProd
 equiv_linearIndependent
@@ -4631,9 +4634,11 @@ invertibleNeg
 invertibleOfCharPNotDvd
 invertibleOfCoprime
 invertibleOfInvertibleMul
+invertibleOfLeftInverse
 invertibleOfMulInvertible
 invertibleOfNonzero
 invertibleOfPos
+invertibleOfRightInverse
 invertibleOfRingCharNotDvd
 invertibleOne
 invertiblePow
@@ -5531,6 +5536,7 @@ one_le_div'
 one_le_kstar
 one_le_mabs
 one_le_mul_self_iff
+one_le_nhds_iff
 one_le_sq_iff_one_le_abs
 one_le_star_iff
 one_le_zpow_iff_right_of_lt_one₀
@@ -5631,6 +5637,8 @@ powMonoidHom
 powMonoidWithZeroHom
 pow_eq_zero_iff
 pow_eq_zero_iff'
+pow_gcd_eq_one
+pow_intGCD_eq_one
 pow_le_kstar
 pow_le_pow_iff_right₀
 pow_left_inj₀
@@ -5672,7 +5680,6 @@ quadraticChar
 quadraticCharFun
 quasispectrum
 quotAdjoinEquivQuotMap
-quotMapEquivQuotMapMaximalIdealOfIsLocalization
 rTensor
 rTensorHomEquivHomRTensor
 rationalCauSeqPkg
