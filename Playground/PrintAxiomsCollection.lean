@@ -49,6 +49,9 @@ import Mathlib
 #print axioms Array
 #print axioms String
 #print axioms MultilinearMap
+#print axioms BorelSpace
+#print axioms CategoryTheory.IsGroupoid
+#print axioms CategoryTheory.EnrichedCategory
 
 
 -- concepts depending on propext
@@ -74,6 +77,7 @@ import Mathlib
 #print axioms Finset
 #print axioms Cauchy
 #print axioms T3Space
+#print axioms Coalgebra
 
 
 -- concepts depending on propext, Quot.sound, Classical.choice
@@ -94,3 +98,5 @@ import Mathlib
 #print axioms Homotopy
 #print axioms FundamentalGroup
 #print axioms FunctionField
+#print axioms CategoryTheory.IsKernelPair
+#print axioms Nat.chineseRemainder
