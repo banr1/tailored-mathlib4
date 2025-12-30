@@ -578,7 +578,6 @@ CurveIntegrable
 CuspForm
 CuspFormClass
 Cycle
-CyclotomicCharacter
 CyclotomicField
 CyclotomicRing
 DFA
@@ -690,7 +689,6 @@ ENormedAddCommMonoid
 ENormedAddMonoid
 ENormedCommMonoid
 ENormedMonoid
-ENormedSpace
 EReal
 EST
 ESeminormedAddCommMonoid
@@ -706,7 +704,6 @@ Emetric
 EmetricSpace
 Empty
 EmptyCollection
-EmptyRelation
 Encodable
 Eq
 EqualCharZero
@@ -1053,7 +1050,6 @@ HolderWith
 Holor
 HolorIndex
 HomRel
-Homemorph
 Homeomorph
 HomeomorphClass
 HomogeneousIdeal
@@ -1153,9 +1149,11 @@ IsAddCommutative
 IsAddCyclic
 IsAddFreimanHom
 IsAddFreimanIso
+IsAddIndecomposable
 IsAddKleinFour
 IsAddLeftRegular
 IsAddQuantale
+IsAddQuotientCoveringMap
 IsAddRegular
 IsAddRightRegular
 IsAddTorsion
@@ -1373,6 +1371,7 @@ IsMulCentral
 IsMulCommutative
 IsMulFreimanHom
 IsMulFreimanIso
+IsMulIndecomposable
 IsMulTorsionFree
 IsMultiplyPretransitive
 IsNilpotent
@@ -1430,12 +1429,12 @@ IsPurelyInseparable
 IsQuantale
 IsQuasiSeparated
 IsQuasiregular
+IsQuotientCoveringMap
 IsQuotientMap
 IsRCLikeNormedField
 IsRadical
 IsReduced
 IsRefl
-IsReflexive
 IsRegular
 IsRelLowerSet
 IsRelPrime
@@ -1476,6 +1475,7 @@ IsSolvable
 IsSolvableByRad
 IsSpectralMap
 IsSquare
+IsStablyFiniteRing
 IsStarNormal
 IsStarProjection
 IsStrictOrder
@@ -1645,7 +1645,6 @@ LineDifferentiableAt
 LineDifferentiableWithinAt
 LinearAlgebra
 LinearEquiv
-LinearEquivClass
 LinearGrowth
 LinearIndepOn
 LinearIndependent
@@ -1769,6 +1768,7 @@ MemHolder
 MemTrivializationAtlas
 Membership
 Memℓp
+Meromorphic
 MeromorphicAt
 MeromorphicNFAt
 MeromorphicNFOn
@@ -1787,8 +1787,6 @@ ModP
 ModelProd
 ModelWithCorners
 Modular
-ModularCyclotomicCharacter
-ModularCyclotomicCharacter'
 ModularForm
 ModularFormClass
 ModularGroup
@@ -2140,7 +2138,6 @@ Pell
 Perfect
 PerfectClosure
 PerfectField
-PerfectPairing
 PerfectRing
 PerfectSpace
 Perfection
@@ -3164,7 +3161,6 @@ bihimp_le_iff_right
 bihimp_left_inj
 bihimp_right_inj
 bijective_frobenius
-bilinFormOfRealInner
 bilinearIteratedFDerivTwo
 bilinearIteratedFDerivWithinTwo
 binderNameHint
@@ -3180,7 +3176,6 @@ bool
 boolRingCatEquivBoolAlg
 borel
 botOrderOrNoBotOrder
-bot_codisjoint
 bot_covBy_iff
 bot_lt_affineSpan
 bot_lt_iSup
@@ -3341,17 +3336,10 @@ cmp_eq_eq_iff
 cmp_eq_gt_iff
 cmp_eq_lt_iff
 coborder
-codisjoint_bot
 codisjoint_hnot_hnot_left_iff
 codisjoint_hnot_hnot_right_iff
 codisjoint_inf_left
 codisjoint_inf_right
-codisjoint_map_orderIso_iff
-codisjoint_ofDual_iff
-codisjoint_self
-codisjoint_toDual_iff
-codisjoint_top_left
-codisjoint_top_right
 coe_le_enorm
 coe_lt_enorm
 coe_mem_spectrum_real_of_nonneg
@@ -3724,6 +3712,7 @@ eisensteinSeries
 elabAsAuxLemma
 elabExportRootNamespaces
 emetricSpacePi
+emptyRelation
 emptyWf
 empty_relation_apply
 emultiplicity
@@ -4151,14 +4140,10 @@ infPrime_iff_infIrred
 infPrime_ofDual
 infPrime_toDual
 inf_eq_sup
-inf_eq_top_iff
 inf_le_bihimp
-inf_le_iff
 inf_left_le_sup_left
 inf_left_le_sup_right
-inf_lt_iff
 inf_lt_sup
-inf_right_le_sup_left
 inf_right_le_sup_right
 infinite_powers
 infinite_prod
@@ -4264,9 +4249,6 @@ instCancelCommMonoidLex
 instCancelMonoidColex
 instCancelMonoidLex
 instCancelMonoidOrderDual
-instCartesianClosedCondensedSet
-instCartesianClosedLightCondSet
-instCartesianClosedSheafOfHasSheafifyOfFunctorOpposite
 instCategoryProfiniteAddGrp
 instCategoryProfiniteGrp
 instChartedSpaceEuclideanHalfSpaceOfNatNatElemRealIcc
@@ -4533,6 +4515,7 @@ instLocallyFiniteOrderTopSubtypeLeOfDecidableLEOfLocallyFiniteOrder
 instLocallyFiniteOrderTopSubtypeLtOfDecidableLTOfLocallyFiniteOrder
 instLocallyFiniteOrderUnits
 instLocallyFiniteOrderUnitsWithZero
+instMeasureSpaceUnitAddCircle
 instMetricSpaceEmpty
 instMetricSpacePUnit
 instMinStructureGroupoid
@@ -4558,6 +4541,9 @@ instMonoidLex
 instMonoidOrderDual
 instMonoidUniformFun
 instMonoidUniformOnFun
+instMonoidalClosedCondensedSet
+instMonoidalClosedLightCondSet
+instMonoidalClosedSheafOfHasSheafifyOfFunctorOpposite
 instMonoidalLightProfiniteLightCondSetLightProfiniteToLightCondSet
 instMulActionElemFixedPointsSubtypeMemSubgroupOfNormal
 instMulActionRay
@@ -5244,7 +5230,6 @@ lpInftySubring
 lpPiLpₗᵢ
 lpSubmodule
 lt_compl_self
-lt_inf_iff
 lt_inv_mul_iff_mul_lt
 lt_inv_self_iff
 lt_mul_iff_one_lt_left
@@ -5277,9 +5262,10 @@ map_inv_lt_iff
 map_mem_nonunits_iff
 matPolyEquiv
 mathlib
+matrixAlgEquivEndVecMulOpposite
 matrixEquivTensor
+matrixRingEquivEndVecMulOpposite
 maxDefault
-max_eq_top
 maximalFor_eq_iff
 maximalFor_id
 maximal_eq_iff
@@ -5366,6 +5352,7 @@ mem_upperClosure
 mem_vadd_const_affineSegment
 mem_vsub_const_affineSegment
 meromorphicNFAt_inv
+meromorphicOn_univ
 meromorphicOrderAt
 meromorphicTrailingCoeffAt
 mersenne
@@ -6020,7 +6007,6 @@ separableClosure
 separableClosureOperator
 seqOfForallFinsetExistsAux
 sequence
-sesqFormOfInner
 setBasisOfLinearIndependentOfCardEqFinrank
 setBasisOfTopLeSpanOfCardEqFinrank
 setOf
@@ -6207,7 +6193,6 @@ supPrime_iff_supIrred
 supPrime_ofDual
 supPrime_toDual
 sup_eq_bot_iff
-sup_eq_inf
 sup_eq_left
 sup_eq_right
 sup_le_iff
