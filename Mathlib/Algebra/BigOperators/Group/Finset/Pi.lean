@@ -5,22 +5,19 @@ Authors: Johannes Hölzl
 -/
 module
 
-public import Mathlib.Data.Fintype.Pi
 public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Data.Fintype.Pi
 
 
 /-!
 # Products over `univ.pi`
-
 -/
 
-@[expose] public section
+public section
 
 assert_not_exists MonoidWithZero MulAction IsOrderedMonoid
 
 variable {ι β : Type*}
-
-open Fin Function
 
 namespace Finset
 

@@ -5,8 +5,8 @@ Authors: Robin Carlier
 -/
 module
 
-public import Mathlib.CategoryTheory.Core
 public import Mathlib.CategoryTheory.Bicategory.NaturalTransformation.Pseudo
+public import Mathlib.CategoryTheory.Core
 
 /-!
 # (2,1)-categories
@@ -24,14 +24,11 @@ through the inclusion from `Pith B` to `B` (see
 
 ## References
 - [Kerodon, section 1.2.2](https://kerodon.net/tag/02GD).
-
 -/
 
 @[expose] public section
 
 namespace CategoryTheory.Bicategory
-
-open Bicategory
 
 universe w₁ w₂ v₁ v₂ u₁ u₂
 
@@ -39,7 +36,7 @@ universe w₁ w₂ v₁ v₂ u₁ u₂
 @[kerodon 009Q]
 abbrev IsLocallyGroupoid (B : Type u₁) [Bicategory.{w₁, v₁} B] := ∀ (b c : B), IsGroupoid (b ⟶ c)
 
-/-- Given a bicategory `B`, `Pith B` is the bicategory obtain by discarding the non-invertible
+/-- Given a bicategory `B`, `Pith B` is the bicategory obtained by discarding the non-invertible
 2-cells from `B`. We implement this as a wrapper type for `B`, and use `CategoryTheory.Core`
 to discard the non-invertible morphisms. -/
 @[kerodon 00AL]
@@ -118,7 +115,7 @@ def inclusion : Pseudofunctor (Pith B) B where
 
 variable {B} in
 /-- Any pseudofunctor from a (2,1)-category to a bicategory factors through
-the pith of the target bicateogry. -/
+the pith of the target bicategory. -/
 @[simps!]
 noncomputable def pseudofunctorToPith {B' : Type u₂} [Bicategory.{w₂, v₂} B']
     [IsLocallyGroupoid B'] (F : Pseudofunctor B' B) :
@@ -133,6 +130,8 @@ section
 
 variable {B} {B' : Type u₂} [Bicategory.{w₂, v₂} B'] [IsLocallyGroupoid B'] (F : Pseudofunctor B' B)
 
+set_option backward.defeqAttrib.useBackward true in
+set_option backward.isDefEq.respectTransparency false in
 /-- The hom direction of the (strong) natural isomorphism of pseudofunctors
 between `(pseudofunctorToPith F).comp (inclusion B)` and `F`. -/
 noncomputable def pseudofunctorToPithCompInclusionStrongIsoHom :
@@ -140,6 +139,8 @@ noncomputable def pseudofunctorToPithCompInclusionStrongIsoHom :
   app b' := 𝟙 _
   naturality f := (ρ_ _) ≪≫ (λ_ _).symm
 
+set_option backward.defeqAttrib.useBackward true in
+set_option backward.isDefEq.respectTransparency false in
 /-- The inv direction of the (strong) natural isomorphism of pseudofunctors
 between `(pseudofunctorToPith F).comp (inclusion B)` and `F`. -/
 noncomputable def pseudofunctorToPithCompInclusionStrongIsoInv :
@@ -156,7 +157,7 @@ variable {B : Type u₁} [Bicategory.{w₁, v₁} B]
 /-- If `B` is a (2,1)-category, then every lax functor `F` from a bicategory to `B` defines a
 `CategoryTheory.LaxFunctor.PseudoCore` structure on `F` that can be used to promote `F` to a
 pseudofunctor using `CategoryTheory.Pseudofunctor.mkOfLax`. -/
-@[simps!]
+@[simps! mapIdIso_hom mapCompIso_hom]
 noncomputable def Pseudofunctor.ofLaxFunctorToLocallyGroupoid
     {B' : Type u₂} [Bicategory.{w₂, v₂} B'] [IsLocallyGroupoid B] (F : LaxFunctor B' B) :
     F.PseudoCore where
@@ -166,7 +167,7 @@ noncomputable def Pseudofunctor.ofLaxFunctorToLocallyGroupoid
 /-- If `B` is a (2,1)-category, then every oplax functor `F` from a bicategory to `B` defines
 a `CategoryTheory.OplaxFunctor.PseudoCore` structure on `F` that can be used to promote `F`
 to a pseudofunctor using `CategoryTheory.Pseudofunctor.mkOfOplax`. -/
-@[simps!]
+@[simps! mapIdIso_inv mapCompIso_inv]
 noncomputable def Pseudofunctor.ofOplaxFunctorToLocallyGroupoid
     {B' : Type u₂} [Bicategory.{w₂, v₂} B'] [IsLocallyGroupoid B] (F : OplaxFunctor B' B) :
     F.PseudoCore where

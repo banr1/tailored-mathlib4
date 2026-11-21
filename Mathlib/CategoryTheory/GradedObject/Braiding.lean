@@ -7,6 +7,7 @@ module
 
 public import Mathlib.CategoryTheory.GradedObject.Monoidal
 public import Mathlib.CategoryTheory.Monoidal.Braided.Basic
+
 /-!
 # The braided and symmetric category structures on graded objects
 
@@ -17,7 +18,6 @@ additive monoid (and suitable coproducts exist in a braided category `C`).
 
 When `C` is a braided category and suitable assumptions are made, we obtain the braided category
 structure on `GradedObject I C` and show that it is symmetric if `C` is symmetric.
-
 -/
 
 @[expose] public section
@@ -160,8 +160,8 @@ variable
 noncomputable instance braidedCategory [BraidedCategory C] :
     BraidedCategory (GradedObject I C) where
   braiding X Y := Monoidal.braiding X Y
-  braiding_naturality_left _ _:= Monoidal.braiding_naturality_left _ _
-  braiding_naturality_right _ _ _ _  := Monoidal.braiding_naturality_right _ _
+  braiding_naturality_left _ _ := Monoidal.braiding_naturality_left _ _
+  braiding_naturality_right _ _ _ _ := Monoidal.braiding_naturality_right _ _
   hexagon_forward _ _ _ := Monoidal.hexagon_forward _ _ _
   hexagon_reverse _ _ _ := Monoidal.hexagon_reverse _ _ _
 

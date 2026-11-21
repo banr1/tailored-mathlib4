@@ -5,8 +5,9 @@ Authors: Yongshun Ye
 -/
 module
 
-public import Mathlib.Data.Nat.GCD.Basic
 public import Mathlib.Data.Nat.Prime.Defs
+
+import Mathlib.Data.Nat.GCD.Basic
 
 /-!
 # Lemmas related to `Nat.Prime` and `lcm`
@@ -19,10 +20,9 @@ These lemmas are kept separate from `Mathlib/Data/Nat/GCD/Basic.lean` in order t
 - `Nat.Prime.dvd_or_dvd_of_dvd_lcm`: If `p ∣ lcm a b`, then `p ∣ a ∨ p ∣ b`.
 - `Nat.Prime.dvd_lcm`: `p ∣ lcm a b ↔ p ∣ a ∨ p ∣ b`.
 - `Nat.Prime.not_dvd_lcm`: If `p ∤ a` and `p ∤ b`, then `p ∤ lcm a b`.
-
 -/
 
-@[expose] public section
+public section
 
 namespace Nat
 

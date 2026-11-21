@@ -6,7 +6,7 @@ Authors: Amelia Livingston
 module
 
 public import Mathlib.Algebra.Group.Submonoid.Membership
-public import Mathlib.GroupTheory.MonoidLocalization.Basic
+public import Mathlib.GroupTheory.MonoidLocalization.Maps
 
 /-!
 # Localizing commutative monoids away from an element
@@ -22,8 +22,6 @@ commutative monoid, grothendieck group
 @[expose] public section
 
 assert_not_exists MonoidWithZero
-
-open Function
 
 section CommMonoid
 
@@ -56,8 +54,8 @@ noncomputable def AwayMap.invSelf : N := F.mk' 1 ⟨x, mem_powers _⟩
 `z : N` to `g y * (g x)⁻ⁿ`, where `y : M, n : ℕ` are such that `z = F y * (F x)⁻ⁿ`. -/
 noncomputable def AwayMap.lift (hg : IsUnit (g x)) : N →* P :=
   Submonoid.LocalizationMap.lift F fun y ↦
-    show IsUnit (g y.1) by
-      obtain ⟨n, hn⟩ := y.2
+    show IsUnit (g y.val) by
+      obtain ⟨n, hn⟩ := y.property
       rw [← hn, g.map_pow]
       exact IsUnit.pow n hg
 
@@ -101,8 +99,8 @@ noncomputable def AwayMap.negSelf : B :=
 `z : B` to `g y - n • g x`, where `y : A, n : ℕ` are such that `z = F y - n • F x`. -/
 noncomputable def AwayMap.lift (hg : IsAddUnit (g x)) : B →+ C :=
   AddSubmonoid.LocalizationMap.lift F fun y ↦
-    show IsAddUnit (g y.1) by
-      obtain ⟨n, hn⟩ := y.2
+    show IsAddUnit (g y.val) by
+      obtain ⟨n, hn⟩ := y.property
       rw [← hn]
       dsimp
       rw [g.map_nsmul]

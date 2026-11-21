@@ -13,7 +13,6 @@ public import Mathlib.LinearAlgebra.Multilinear.Finsupp
 
 This file proves lemmas about the action of multilinear maps on basis vectors and constructs a
 basis for multilinear maps given bases on the domain and codomain.
-
 -/
 
 @[expose] public section
@@ -21,13 +20,13 @@ basis for multilinear maps given bases on the domain and codomain.
 
 open MultilinearMap
 
-variable {ι R : Type*} [CommSemiring R]
+variable {ι R S : Type*} [CommSemiring R] [CommSemiring S] {σ : R →+* S}
   {M : ι → Type*} [∀ i, AddCommMonoid (M i)] [∀ i, Module R (M i)]
-  {N : Type*} [AddCommMonoid N] [Module R N]
+  {N : Type*} [AddCommMonoid N] [Module S N]
 
 /-- Two multilinear maps indexed by a `Fintype` are equal if they are equal when all arguments
 are basis vectors. -/
-theorem Module.Basis.ext_multilinear [Finite ι] {f g : MultilinearMap R M N} {ιM : ι → Type*}
+theorem Module.Basis.ext_multilinear [Finite ι] {f g : (Π i, M i) →ₘₛₗ[σ] N} {ιM : ι → Type*}
     (e : ∀ i, Basis (ιM i) R (M i))
     (h : ∀ v : (i : ι) → ιM i, (f fun i ↦ e i (v i)) = g fun i ↦ e i (v i)) : f = g := by
   cases nonempty_fintype ι
@@ -48,24 +47,24 @@ variable {κ : ι → Type*} (b : (i : ι) → Basis (κ i) R (M i))
 open scoped Classical in
 /-- A basis for multilinear maps given a finite basis on each domain and a basis on the codomain. -/
 noncomputable def multilinearMap [Finite ι] [∀ i, Finite (κ i)] :
-    Basis ((Π i, κ i) × ι') R (MultilinearMap R M N) where
+    Basis ((Π i, κ i) × ι') R ((Π i, M i) →ₘₗ[R] N) where
   repr :=
     have : Fintype ι := Fintype.ofFinite _
     have (i : ι) : Fintype (κ i) := Fintype.ofFinite _
     LinearEquiv.multilinearMapCongrLeft (fun i => (b i).repr.symm) ≪≫ₗ
       (b'.repr).multilinearMapCongrRight R ≪≫ₗ freeFinsuppEquiv.symm
 
-variable [Fintype ι] [∀ i, Fintype (κ i)]
+variable [Fintype ι] [∀ i, Finite (κ i)]
 
 theorem multilinearMap_apply (i : (Π i, κ i) × ι') :
     Basis.multilinearMap b b' i =
       ((LinearMap.id (M := R)).smulRight (b' i.2)).compMultilinearMap
         (MultilinearMap.mkPiRing R ι 1 |>.compLinearMap fun i' => (b i').coord (i.1 i')) := by
   ext x
-  simp only [multilinearMap, Basis.coe_ofRepr, LinearEquiv.trans_symm, LinearEquiv.symm_symm,
-    LinearEquiv.trans_apply, LinearEquiv.multilinearMapCongrRight_symm_apply, Basis.coe_repr_symm,
-    LinearEquiv.multilinearMapCongrLeft_symm_apply, compLinearMap_apply, LinearEquiv.coe_coe,
-    LinearMap.compMultilinearMap_apply, freeFinsuppEquiv_single, one_smul,
+  simp +instances only [multilinearMap, Basis.coe_ofRepr, LinearEquiv.trans_symm,
+    LinearEquiv.symm_symm, LinearEquiv.trans_apply, LinearEquiv.multilinearMapCongrRight_symm_apply,
+    Basis.coe_repr_symm, LinearEquiv.multilinearMapCongrLeft_symm_apply, compLinearMap_apply,
+    LinearEquiv.coe_coe, LinearMap.compMultilinearMap_apply, freeFinsuppEquiv_single, one_smul,
     Finsupp.linearCombination_single, Basis.coord_apply, mkPiRing_apply, smul_eq_mul, mul_one,
     LinearMap.coe_smulRight, LinearMap.id_coe, id_eq, Subsingleton.elim (Fintype.ofFinite ι)]
 

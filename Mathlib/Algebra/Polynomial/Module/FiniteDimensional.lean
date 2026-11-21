@@ -5,9 +5,10 @@ Authors: Oliver Nash
 -/
 module
 
-public import Mathlib.FieldTheory.Minpoly.Field
-public import Mathlib.Algebra.Polynomial.Module.AEval
 public import Mathlib.Algebra.Module.Torsion.Basic
+public import Mathlib.Algebra.Polynomial.Module.AEval
+public import Mathlib.FieldTheory.Minpoly.Field
+
 /-!
 # Polynomial modules in finite dimensions
 
@@ -18,10 +19,9 @@ by an `R`-linear endomorphism, which require the concept of finite-dimensionalit
 * `Module.AEval.isTorsion_of_finiteDimensional`: if a vector space `M` with coefficients in a field
   `K` carries a natural `K`-linear endomorphism which belongs to a finite-dimensional algebra
   over `K`, then the induced `K[X]`-module structure on `M` is pure torsion.
-
 -/
 
-@[expose] public section
+public section
 
 open Polynomial
 

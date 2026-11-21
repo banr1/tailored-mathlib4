@@ -17,12 +17,12 @@ The lemmas in this file have been moved out of
 `Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean` to reduce its imports.
 -/
 
-@[expose] public section
+public section
 
-variable {ι κ M N β : Type*}
+variable {ι κ M N : Type*}
 
 @[to_additive]
-theorem MonoidHom.coe_finset_prod [MulOneClass M] [CommMonoid N] (f : ι → M →* N) (s : Finset ι) :
+theorem MonoidHom.coe_finsetProd [MulOneClass M] [CommMonoid N] (f : ι → M →* N) (s : Finset ι) :
     ⇑(∏ x ∈ s, f x) = ∏ x ∈ s, ⇑(f x) :=
   map_prod (MonoidHom.coeFn M N) _ _
 
@@ -31,7 +31,7 @@ theorem MonoidHom.coe_finset_prod [MulOneClass M] [CommMonoid N] (f : ι → M �
 @[to_additive (attr := simp)
   /-- See also `Finset.sum_apply`, with the same conclusion but with the weaker hypothesis
   `f : α → M → N` -/]
-theorem MonoidHom.finset_prod_apply [MulOneClass M] [CommMonoid N] (f : ι → M →* N) (s : Finset ι)
+theorem MonoidHom.finsetProd_apply [MulOneClass M] [CommMonoid N] (f : ι → M →* N) (s : Finset ι)
     (b : M) : (∏ x ∈ s, f x) b = ∏ x ∈ s, f x b :=
   map_prod (MonoidHom.eval b) _ _
 
@@ -46,15 +46,16 @@ lemma mulSupport_prod (s : Finset ι) (f : ι → κ → M) :
   simp only [mulSupport_subset_iff', Set.mem_iUnion, not_exists, notMem_mulSupport]
   exact fun x ↦ prod_eq_one
 
+-- TODO : add multiset sum version
 @[to_additive]
 lemma isSquare_prod {s : Finset ι} (f : ι → M) (h : ∀ c ∈ s, IsSquare (f c)) :
     IsSquare (∏ i ∈ s, f i) := by
   rw [isSquare_iff_exists_sq]
-  use (∏ (x : s), ((isSquare_iff_exists_sq _).mp (h _ x.2)).choose)
+  use (∏ (x : s), ((isSquare_iff_exists_sq _).mp (h _ x.property)).choose)
   rw [@sq, ← Finset.prod_mul_distrib, ← Finset.prod_coe_sort]
   congr
   ext i
   rw [← @sq]
-  exact ((isSquare_iff_exists_sq _).mp (h _ i.2)).choose_spec
+  exact ((isSquare_iff_exists_sq _).mp (h _ i.property)).choose_spec
 
 end Finset

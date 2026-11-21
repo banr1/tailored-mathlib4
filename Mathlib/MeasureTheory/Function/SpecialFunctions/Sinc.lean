@@ -6,7 +6,6 @@ Authors: Rémy Degenne
 module
 
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Sinc
-public import Mathlib.MeasureTheory.Function.SpecialFunctions.Basic
 public import Mathlib.MeasureTheory.Function.L1Space.Integrable
 
 /-!
@@ -16,10 +15,9 @@ public import Mathlib.MeasureTheory.Function.L1Space.Integrable
 
 * `measurable_sinc`: the sinc function is measurable.
 * `integrable_sinc`: the sinc function is integrable with respect to any finite measure on `ℝ`.
-
 -/
 
-@[expose] public section
+public section
 
 open MeasureTheory
 

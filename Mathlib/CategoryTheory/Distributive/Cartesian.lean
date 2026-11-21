@@ -10,7 +10,6 @@ public import Mathlib.CategoryTheory.Limits.MonoCoprod
 public import Mathlib.CategoryTheory.Monoidal.Cartesian.Basic
 
 /-!
-
 # Distributive categories
 
 ## Main definitions
@@ -42,7 +41,7 @@ monoidal distributive.
 - [Carboni et al, Introduction to extensive and distributive categories][CARBONI1993145]
 -/
 
-@[expose] public section
+public section
 
 universe v v₂ u u₂
 

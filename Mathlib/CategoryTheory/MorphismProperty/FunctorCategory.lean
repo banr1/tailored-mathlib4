@@ -5,10 +5,10 @@ Authors: Joël Riou
 -/
 module
 
-public import Mathlib.CategoryTheory.Limits.FunctorCategory.EpiMono
 public import Mathlib.CategoryTheory.MorphismProperty.Retract
-public import Mathlib.CategoryTheory.MorphismProperty.Limits
 public import Mathlib.CategoryTheory.MorphismProperty.TransfiniteComposition
+
+import Mathlib.CategoryTheory.Limits.FunctorCategory.EpiMono
 
 /-!
 # Stability properties of morphism properties on functor categories
@@ -19,10 +19,9 @@ stability properties of `W.functorCategory J : MorphismProperty (J ⥤ C)`.
 Under suitable assumptions, we also show that if monomorphisms
 in `C` are stable under transfinite compositions (or coproducts),
 then the same holds in the category `J ⥤ C`.
-
 -/
 
-@[expose] public section
+public section
 
 universe v v' v'' u u' u''
 
@@ -47,7 +46,7 @@ instance IsStableUnderLimitsOfShape.functorCategory
     (W.functorCategory J).IsStableUnderLimitsOfShape K where
   condition X₁ X₂ _ _ hc₁ hc₂ f hf φ hφ j :=
     MorphismProperty.limitsOfShape_le _
-      (limitsOfShape.mk' (X₁ ⋙ (evaluation _ _ ).obj j) (X₂ ⋙ (evaluation _ _ ).obj j)
+      (limitsOfShape.mk' (X₁ ⋙ (evaluation _ _).obj j) (X₂ ⋙ (evaluation _ _).obj j)
       _ _ (isLimitOfPreserves _ hc₁) (isLimitOfPreserves _ hc₂) (Functor.whiskerRight f _)
       (fun k ↦ hf k j) (φ.app j) (fun k ↦ congr_app (hφ k) j))
 
@@ -57,7 +56,7 @@ instance IsStableUnderColimitsOfShape.functorCategory
     (W.functorCategory J).IsStableUnderColimitsOfShape K where
   condition X₁ X₂ _ _ hc₁ hc₂ f hf φ hφ j :=
     MorphismProperty.colimitsOfShape_le _
-      (colimitsOfShape.mk' (X₁ ⋙ (evaluation _ _ ).obj j) (X₂ ⋙ (evaluation _ _ ).obj j)
+      (colimitsOfShape.mk' (X₁ ⋙ (evaluation _ _).obj j) (X₂ ⋙ (evaluation _ _).obj j)
       _ _ (isColimitOfPreserves _ hc₁) (isColimitOfPreserves _ hc₂) (Functor.whiskerRight f _)
       (fun k ↦ hf k j) (φ.app j) (fun k ↦ congr_app (hφ k) j))
 

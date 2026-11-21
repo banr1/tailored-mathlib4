@@ -10,10 +10,9 @@ public import Mathlib.Data.Int.Cast.Lemmas
 
 /-!
 # Centers of rings
-
 -/
 
-@[expose] public section
+public section
 
 assert_not_exists RelIso Finset Subsemigroup Field
 

@@ -21,14 +21,13 @@ In particular, if `u = v` and `C : Type u` is a small category,
 then `SheafOfModules.{u} R` is abelian: this instance shall be
 found automatically if this file and `Algebra.Category.Grp.FilteredColimits`
 are imported.
-
 -/
 
-@[expose] public section
+public section
 
 universe v v' u u'
 
-open CategoryTheory Limits
+open CategoryTheory
 
 variable {C : Type u'} [Category.{v'} C] {J : GrothendieckTopology C}
 
@@ -37,8 +36,8 @@ namespace SheafOfModules
 variable (R : Sheaf J RingCat.{u}) [HasSheafify J AddCommGrpCat.{v}]
   [J.WEqualsLocallyBijective AddCommGrpCat.{v}]
 
-instance : Abelian (SheafOfModules.{v} R) := by
-  let adj := PresheafOfModules.sheafificationAdjunction (𝟙 R.val)
+noncomputable instance : Abelian (SheafOfModules.{v} R) := by
+  let adj := PresheafOfModules.sheafificationAdjunction (𝟙 R.obj)
   exact abelianOfAdjunction _ _ (asIso (adj.counit)) adj
 
 end SheafOfModules

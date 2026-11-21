@@ -6,9 +6,7 @@ Authors: Joël Riou
 module
 
 public import Mathlib.AlgebraicTopology.SimplicialSet.Subcomplex
-public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.CommSq
 public import Mathlib.CategoryTheory.Limits.Types.Multicoequalizer
-public import Mathlib.CategoryTheory.Limits.Types.Pushouts
 
 /-!
 # Colimits involving subcomplexes of a simplicial set
@@ -21,7 +19,6 @@ the `U i` along the `V i j`.
 
 Similarly, bicartesian squares in the lattice `Subcomplex X` give pushout
 squares in the category of simplicial sets.
-
 -/
 
 @[expose] public section
@@ -59,9 +56,11 @@ noncomputable def isColimit :
         (fun i j ↦ (V i j).obj n) :=
       { eq_inf := by simp [h.eq_inf]
         iSup_eq := by simp [← h.iSup_eq] }
-    exact (Multicofork.isColimitMapEquiv _ _).2
+    exact (Multicofork.isColimitMapEquiv _ _).invFun
       (Types.isColimitOfMulticoequalizerDiagram h'))
 
+set_option backward.isDefEq.respectTransparency.types false in
+set_option backward.defeqAttrib.useBackward true in
 /-- A colimit multicofork attached to a `MulticoequalizerDiagram`
 structure in the complete lattice of subcomplexes of a simplicial set.
 In this variant, we assume that the index type `ι` has a linear order. This allows
@@ -89,7 +88,7 @@ lemma BicartSq.isPushout {A₁ A₂ A₃ A₄ : X.Subcomplex} (sq : BicartSq A�
   w := rfl
   isColimit' :=
     ⟨evaluationJointlyReflectsColimits _
-      (fun n ↦ (PushoutCocone.isColimitMapCoconeEquiv _ _).2 (by
+      (fun n ↦ (PushoutCocone.isColimitMapCoconeEquiv _ _).invFun (by
         have h : Lattice.BicartSq (A₁.obj n) (A₂.obj n) (A₃.obj n) (A₄.obj n) :=
           { sup_eq := by
               rw [← sq.sup_eq]

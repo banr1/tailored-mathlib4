@@ -5,9 +5,9 @@ Authors: Yuma Mizuno
 -/
 module
 
-public meta import Mathlib.Tactic.CategoryTheory.Coherence.Basic
-public meta import Mathlib.Tactic.CategoryTheory.Bicategory.Normalize
-public meta import Mathlib.Tactic.CategoryTheory.Bicategory.PureCoherence
+public import Mathlib.Tactic.CategoryTheory.Bicategory.Normalize
+public import Mathlib.Tactic.CategoryTheory.Bicategory.PureCoherence
+public import Mathlib.Tactic.CategoryTheory.Coherence.Basic
 
 /-!
 # `bicategory` tactic
@@ -21,7 +21,6 @@ string diagrams.
 The core function for the `bicategory` tactic is provided in
 `Mathlib/Tactic/CategoryTheory/Coherence/Basic.lean`. See this file for more details about the
 implementation.
-
 -/
 
 public meta section

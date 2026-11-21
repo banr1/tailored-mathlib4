@@ -5,9 +5,13 @@ Authors: Scott Carnahan, Oliver Nash
 -/
 module
 
-public import Mathlib.Algebra.Module.Submodule.Invariant
-public import Mathlib.LinearAlgebra.PerfectPairing.Restrict
 public import Mathlib.LinearAlgebra.RootSystem.Defs
+
+import Mathlib.Algebra.Algebra.Rat
+import Mathlib.LinearAlgebra.FreeModule.PID
+import Mathlib.LinearAlgebra.PerfectPairing.Restrict
+import Mathlib.LinearAlgebra.Span.TensorProduct
+import Mathlib.RingTheory.Flat.TorsionFree
 
 /-!
 # Root pairings taking values in a subring
@@ -24,7 +28,6 @@ of this theory is the theory of crystallographic root systems, where `S = ℤ`.
   between a root and coroot is always an integer.
 * `RootPairing.pairingIn`: The `S`-valued pairing between roots and coroots.
 * `RootPairing.coxeterWeightIn`: The product of `pairingIn i j` and `pairingIn j i`.
-
 -/
 
 @[expose] public section
@@ -32,7 +35,6 @@ of this theory is the theory of crystallographic root systems, where `S = ℤ`.
 open Set Function
 open Submodule (span)
 open Module
-
 
 noncomputable section
 
@@ -129,12 +131,17 @@ lemma IsValuedIn.trans (T : Type*) [CommRing T] [Algebra T S] [Algebra T R] [IsS
 instance [P.IsCrystallographic] [Algebra ℚ R] : P.IsValuedIn ℚ :=
   IsValuedIn.trans P (T := ℤ) (S := ℚ)
 
+@[simp] lemma algebraMap_pairingIn' (T : Type*)
+    [CommRing T] [Algebra T S] [Algebra T R] [IsScalarTower T S R] [P.IsValuedIn T] [P.IsValuedIn S]
+    [FaithfulSMul S R] (i j : ι) :
+    algebraMap T S (P.pairingIn T i j) = P.pairingIn S i j := by
+  apply FaithfulSMul.algebraMap_injective S R
+  rw [← RingHom.comp_apply, ← IsScalarTower.algebraMap_eq]
+  simp
+
 @[simp] lemma pairingIn_rat [Nontrivial R] [P.IsCrystallographic] [Algebra ℚ R] (i j : ι) :
     P.pairingIn ℚ i j = P.pairingIn ℤ i j := by
-  apply FaithfulSMul.algebraMap_injective ℚ R
-  have : algebraMap ℤ R = algebraMap ℚ R ∘ algebraMap ℤ ℚ := by simp
-  rw [← eq_intCast (algebraMap ℤ ℚ), ← comp_apply (f := algebraMap ℚ R) (g := algebraMap ℤ ℚ),
-    ← this, algebraMap_pairingIn, algebraMap_pairingIn]
+  simp [← P.algebraMap_pairingIn' ℚ ℤ]
 
 lemma coroot'_apply_apply_mem_of_mem_span [Module S M] [IsScalarTower S R M] [P.IsValuedIn S]
     {x : M} (hx : x ∈ span S (range P.root)) (i : ι) :
@@ -143,10 +150,10 @@ lemma coroot'_apply_apply_mem_of_mem_span [Module S M] [IsScalarTower S R M] [P.
   induction hx using Submodule.span_induction with
   | mem x hx =>
     obtain ⟨k, rfl⟩ := hx
-    simpa using RootPairing.exists_value k i
+    simpa using! RootPairing.exists_value k i
   | zero => simp
-  | add x y _ _ hx hy => simpa only [map_add] using add_mem hx hy
-  | smul t x _ hx => simpa only [LinearMap.map_smul_of_tower] using Submodule.smul_mem _ t hx
+  | add x y _ _ hx hy => simpa only [map_add] using! add_mem hx hy
+  | smul t x _ hx => simpa only [LinearMap.map_smul_of_tower] using! Submodule.smul_mem _ t hx
 
 lemma root'_apply_apply_mem_of_mem_span [Module S N] [IsScalarTower S R N] [P.IsValuedIn S]
     {x : N} (hx : x ∈ span S (range P.coroot)) (i : ι) :
@@ -190,8 +197,9 @@ def root'In [Module S N] [IsScalarTower S R N] [FaithfulSMul S R] [P.IsValuedIn 
     Dual S (P.corootSpan S) :=
   LinearMap.restrictScalarsRange (P.corootSpan S).subtype (Algebra.linearMap S R)
     (FaithfulSMul.algebraMap_injective S R) (P.root' i)
-    (fun m ↦ P.root'_apply_apply_mem_of_mem_span S m.2 i)
+    (fun m ↦ P.root'_apply_apply_mem_of_mem_span S m.property i)
 
+set_option backward.isDefEq.respectTransparency.types false in
 @[simp]
 lemma algebraMap_root'In_apply [Module S N] [IsScalarTower S R N] [FaithfulSMul S R]
     [P.IsValuedIn S] (i : ι) (x : P.corootSpan S) :
@@ -296,7 +304,7 @@ lemma iInf_ker_coroot'_eq :
   span_root'_eq_top P.flip
 
 lemma pairingIn_eq_zero_iff {S : Type*} [CommRing S] [Algebra S R] [FaithfulSMul S R]
-    [P.IsValuedIn S] [NoZeroSMulDivisors R M] [NeZero (2 : R)] {i j : ι} :
+    [P.IsValuedIn S] [IsDomain R] [Module.IsTorsionFree R M] [NeZero (2 : R)] {i j : ι} :
     P.pairingIn S i j = 0 ↔ P.pairingIn S j i = 0 := by
   simpa only [← FaithfulSMul.algebraMap_eq_zero_iff S R, algebraMap_pairingIn] using
     P.pairing_eq_zero_iff
@@ -333,10 +341,10 @@ section Field
 
 variable (K : Type*) {L : Type*} [Field K] [Field L] [Algebra K L]
   [Module L M] [Module L N] [Module K M] [Module K N] [IsScalarTower K L M] [IsScalarTower K L N]
-  (Q : RootPairing ι L M N) [Q.IsRootSystem] [Q.IsValuedIn K]
+  (Q : RootPairing ι L M N) [Q.IsRootSystem]
 
 @[simp]
-lemma finrank_rootSpanIn :
+lemma finrank_rootSpanIn [Q.IsValuedIn K] :
     finrank K (Q.rootSpan K) = finrank L M := by
   rw [LinearMap.finrank_eq_of_isPerfPair Q.toLinearMap (Q.rootSpan K) (Q.corootSpan K)]
   · simp
@@ -344,9 +352,22 @@ lemma finrank_rootSpanIn :
   · exact Q.toLinearMap_apply_apply_mem_range_algebraMap K
 
 @[simp]
-lemma finrank_corootSpanIn :
+lemma finrank_corootSpanIn [Q.IsValuedIn K] :
     finrank K (Q.corootSpan K) = finrank L N :=
   finrank_rootSpanIn K Q.flip
+
+@[simp]
+lemma finrank_rootSpanIn_int [Finite ι] [CharZero L] [Q.IsCrystallographic] :
+    finrank ℤ (Q.rootSpan ℤ) = finrank L M := by
+  let _i : Module ℚ M := .compHom M (algebraMap ℚ L)
+  let _i : Module ℚ N := .compHom N (algebraMap ℚ L)
+  have _i : HasUniqueDiv M := .of_isTorsionFree L M
+  rw [← Submodule.finrank_span_eq_finrank_span ℤ ℚ, ← Q.finrank_rootSpanIn ℚ]
+
+@[simp]
+lemma finrank_corootSpanIn_int [Finite ι] [CharZero L] [Q.IsCrystallographic] :
+    finrank ℤ (Q.corootSpan ℤ) = finrank L N :=
+  Q.flip.finrank_rootSpanIn_int
 
 end Field
 

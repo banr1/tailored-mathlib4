@@ -5,8 +5,9 @@ Authors: Yuma Mizuno
 -/
 module
 
-public meta import Mathlib.Tactic.CategoryTheory.Coherence.PureCoherence
 public meta import Mathlib.Tactic.CategoryTheory.Bicategory.Datatypes
+public import Mathlib.Tactic.CategoryTheory.Bicategory.Datatypes
+public import Mathlib.Tactic.CategoryTheory.Coherence.PureCoherence
 
 /-!
 # Coherence tactic for bicategories
@@ -15,7 +16,6 @@ We provide a `bicategory_coherence` tactic,
 which proves that any two morphisms (with the same source and target)
 in a bicategory which are built out of associators and unitors
 are equal.
-
 -/
 
 public meta section

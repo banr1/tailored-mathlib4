@@ -10,6 +10,7 @@ public import Mathlib.LinearAlgebra.RootSystem.RootPositive
 
 /-!
 # The canonical bilinear form on a finite root pairing
+
 Given a finite root pairing, we define a canonical map from weight space to coweight space, and the
 corresponding bilinear form. This form is symmetric and Weyl-invariant, and if the base ring is
 linearly ordered, then the form is root-positive, positive-semidefinite on the weight space, and
@@ -37,7 +38,6 @@ Weyl group.
 ## References:
 * [N. Bourbaki, *Lie groups and Lie algebras. Chapters 4--6*][bourbaki1968]
 * [M. Demazure, *SGA III, Exposé XXI, Données Radicielles*][demazure1970]
-
 -/
 
 @[expose] public section
@@ -221,6 +221,11 @@ def RootFormIn : LinearMap.BilinForm S (P.rootSpan S) :=
   ∑ i, (P.coroot'In S i).smulRight (P.coroot'In S i)
 
 omit [Module S N] [IsScalarTower S R N] in
+lemma rootFormIn_isSymm :
+    (P.RootFormIn S).IsSymm := by
+  simp [LinearMap.isSymm_def, mul_comm, RootFormIn]
+
+omit [Module S N] [IsScalarTower S R N] in
 @[simp]
 lemma algebraMap_rootFormIn (x y : P.rootSpan S) :
     (algebraMap S R) (P.RootFormIn S x y) = P.RootForm x y := by
@@ -374,7 +379,7 @@ lemma posRootForm_posForm_apply_apply (x y : P.rootSpan S) : (P.posRootForm S).p
 
 lemma zero_le_posForm (x : span S (range P.root)) :
     0 ≤ (P.posRootForm S).posForm x x := by
-  obtain ⟨s, _, hs⟩ := P.exists_ge_zero_eq_rootForm S x.1 x.2
+  obtain ⟨s, _, hs⟩ := P.exists_ge_zero_eq_rootForm S x.val x.property
   have : s = (P.posRootForm S).posForm x x :=
     FaithfulSMul.algebraMap_injective S R <| (P.algebraMap_posRootForm_posForm S x x) ▸ hs
   rwa [← this]
@@ -391,7 +396,7 @@ lemma pairingIn_lt_zero_iff :
     P.pairingIn S i j < 0 ↔ P.pairingIn S j i < 0 := by
   simpa using P.zero_lt_pairingIn_iff' S (i := i) (j := P.reflectionPerm j j)
 
-lemma pairingIn_le_zero_iff [NeZero (2 : R)] [NoZeroSMulDivisors R M] :
+lemma pairingIn_le_zero_iff [NeZero (2 : R)] [IsDomain R] [Module.IsTorsionFree R M] :
     P.pairingIn S i j ≤ 0 ↔ P.pairingIn S j i ≤ 0 := by
   rcases eq_or_ne (P.pairingIn S i j) 0 with hij | hij <;>
   rcases eq_or_ne (P.pairingIn S j i) 0 with hji | hji

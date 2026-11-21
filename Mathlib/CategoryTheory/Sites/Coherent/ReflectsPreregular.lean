@@ -6,10 +6,9 @@ Authors: Dagur Asgeirsson
 module
 
 public import Mathlib.CategoryTheory.EffectiveEpi.Enough
-public import Mathlib.CategoryTheory.EffectiveEpi.Preserves
 public import Mathlib.CategoryTheory.Sites.Coherent.RegularTopology
-/-!
 
+/-!
 # Reflecting the property of being preregular
 
 We prove that given a fully faithful functor `F : C ⥤ D`, with `Preregular D`, such that for every
@@ -17,7 +16,7 @@ object `X` of `D` there exists an object `W` of `C` with an effective epi `π : 
 category `C` is `Preregular`.
 -/
 
-@[expose] public section
+public section
 
 namespace CategoryTheory
 
@@ -26,6 +25,7 @@ variable {C D : Type*} [Category* C] [Category* D] (F : C ⥤ D)
   [F.EffectivelyEnough]
   [Preregular D] [F.Full] [F.Faithful]
 
+set_option backward.isDefEq.respectTransparency false in
 include F in
 lemma Functor.reflects_preregular : Preregular C where
   exists_fac f g _ := by

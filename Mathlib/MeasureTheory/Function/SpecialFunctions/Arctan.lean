@@ -10,10 +10,9 @@ public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
 
 /-!
 # Measurability of arctan
-
 -/
 
-@[expose] public section
+public section
 
 
 namespace Real

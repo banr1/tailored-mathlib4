@@ -13,10 +13,9 @@ public import Mathlib.LinearAlgebra.Semisimple
 
 This file is a place to gather results related to semisimplicity of linear operators on inner
 product spaces.
-
 -/
 
-@[expose] public section
+public section
 
 variable {𝕜 E : Type*} [RCLike 𝕜] [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
 

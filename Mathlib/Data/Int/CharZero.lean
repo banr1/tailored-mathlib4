@@ -12,10 +12,9 @@ public import Mathlib.Data.Int.Cast.Pi
 
 /-!
 # Injectivity of `Int.Cast` into characteristic zero rings and fields.
-
 -/
 
-@[expose] public section
+public section
 
 open Nat Set
 

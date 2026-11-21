@@ -9,6 +9,9 @@ public import Mathlib.LinearAlgebra.Matrix.Kronecker
 public import Mathlib.LinearAlgebra.Matrix.ToLin
 public import Mathlib.LinearAlgebra.TensorProduct.Basis
 
+set_option doc.verso true
+set_option doc.verso.suggestions false
+
 /-!
 # Connections between `TensorProduct` and `Matrix`
 
@@ -19,7 +22,7 @@ Notably, `TensorProduct.toMatrix_map` shows that taking the tensor product of li
 equivalent to taking the Kronecker product of their matrix representations.
 -/
 
-@[expose] public section
+public section
 
 open Matrix Module LinearMap
 open scoped Kronecker

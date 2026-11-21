@@ -27,10 +27,9 @@ Given `MulAction G X` where `G` is a group,
 
 - `MulAction.isPretransitive_iff_orbit_eq_univ G a` shows that `MulAction.IsPretransitive G X`
   iff `MulAction.orbit G a` is full.
-
 -/
 
-@[expose] public section
+public section
 
 variable {G X : Type*} [Group G] [MulAction G X]
 

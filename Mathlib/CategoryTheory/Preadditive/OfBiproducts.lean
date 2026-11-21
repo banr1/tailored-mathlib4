@@ -7,13 +7,12 @@ module
 
 public import Mathlib.CategoryTheory.Limits.Shapes.BinaryBiproducts
 public import Mathlib.GroupTheory.EckmannHilton
-public import Mathlib.Tactic.CategoryTheory.Reassoc
+
 /-!
 # Constructing a semiadditive structure from binary biproducts
 
 We show that any category with zero morphisms and binary biproducts is enriched over the category
 of commutative monoids.
-
 -/
 
 @[expose] public section
@@ -94,6 +93,7 @@ theorem distrib (f g h k : X ⟶ Y) : (f +ᵣ g) +ₗ h +ᵣ k = (f +ₗ h) +ᵣ
   rw [leftAdd, h₁, Category.assoc, h₂, rightAdd]
 
 /-- In a category with binary biproducts, the morphisms form a commutative monoid. -/
+@[instance_reducible]
 def addCommMonoidHomOfHasBinaryBiproducts : AddCommMonoid (X ⟶ Y) where
   add := (· +ᵣ ·)
   add_assoc :=

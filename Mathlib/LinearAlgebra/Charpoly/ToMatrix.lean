@@ -6,23 +6,18 @@ Authors: Riccardo Brasca
 module
 
 public import Mathlib.LinearAlgebra.Charpoly.Basic
-public import Mathlib.LinearAlgebra.Matrix.Basis
 public import Mathlib.RingTheory.Finiteness.Prod
 
 /-!
-
 # Characteristic polynomial
 
 ## Main result
 
 * `LinearMap.charpoly_toMatrix f` : `charpoly f` is the characteristic polynomial of the matrix
   of `f` in any basis.
-
 -/
 
-@[expose] public section
-
-noncomputable section
+public section
 
 open Module Free Polynomial Matrix
 
@@ -79,7 +74,7 @@ lemma LinearEquiv.charpoly_conj (e : M₁ ≃ₗ[R] M₂) (φ : Module.End R M�
   rw [← LinearMap.charpoly_toMatrix φ b, ← LinearMap.charpoly_toMatrix (e.conj φ) (b.map e)]
   congr 1
   ext i j : 1
-  simp [LinearMap.toMatrix, LinearEquiv.conj_apply]
+  simp [LinearMap.toMatrix]
 
 namespace Matrix
 

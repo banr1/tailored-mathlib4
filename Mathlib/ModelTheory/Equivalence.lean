@@ -17,14 +17,11 @@ public import Mathlib.ModelTheory.Satisfiability
 
 ## TODO
 - Define the quotient of `L.Formula α` modulo `⇔[T]` and its Boolean Algebra structure.
-
 -/
 
 @[expose] public section
 
 universe u v w w'
-
-open Cardinal CategoryTheory
 
 open FirstOrder
 
@@ -49,7 +46,7 @@ namespace Imp
 @[refl]
 protected theorem refl (φ : L.BoundedFormula α n) : φ ⟹[T] φ := fun _ _ _ => id
 
-instance : IsRefl (L.BoundedFormula α n) T.Imp := ⟨Imp.refl⟩
+instance : @Std.Refl (L.BoundedFormula α n) T.Imp := ⟨Imp.refl⟩
 
 @[trans]
 protected theorem trans {φ ψ θ : L.BoundedFormula α n} (h1 : φ ⟹[T] ψ) (h2 : ψ ⟹[T] θ) :
@@ -136,7 +133,7 @@ protected theorem mpr {φ ψ : L.BoundedFormula α n} (h : φ ⇔[T] ψ) :
 protected theorem refl (φ : L.BoundedFormula α n) : φ ⇔[T] φ :=
   fun M v xs => by rw [BoundedFormula.realize_iff]
 
-instance : IsRefl (L.BoundedFormula α n) T.Iff :=
+instance : @Std.Refl (L.BoundedFormula α n) T.Iff :=
   ⟨Iff.refl⟩
 
 @[symm]
@@ -145,7 +142,7 @@ protected theorem symm {φ ψ : L.BoundedFormula α n}
   rw [BoundedFormula.realize_iff, Iff.comm, ← BoundedFormula.realize_iff]
   exact h M v xs
 
-instance : IsSymm (L.BoundedFormula α n) T.Iff :=
+instance : Std.Symm (α := L.BoundedFormula α n) T.Iff :=
   ⟨fun _ _ => Iff.symm⟩
 
 @[trans]
@@ -201,6 +198,7 @@ protected theorem imp {φ ψ φ' ψ' : L.BoundedFormula α n} (h : φ ⇔[T] ψ)
 end Iff
 
 /-- Semantic equivalence forms an equivalence relation on formulas. -/
+@[instance_reducible]
 def iffSetoid (T : L.Theory) : Setoid (L.BoundedFormula α n) where
   r := T.Iff
   iseqv := ⟨fun _ => refl _, fun {_ _} h => h.symm, fun {_ _ _} h1 h2 => h1.trans h2⟩

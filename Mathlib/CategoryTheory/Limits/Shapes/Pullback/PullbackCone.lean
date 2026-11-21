@@ -43,7 +43,7 @@ This file provides API for interacting with cones (resp. cocones) in the case of
 
 ## API
 We summarize the most important parts of the API for pullback cones here. The dual notions for
-pushout cones is also available in this file.
+pushout cones are also available in this file.
 
 Various ways of constructing pullback cones:
 * `PullbackCone.mk` constructs a term of `PullbackCone f g` given morphisms `fst` and `snd` such
@@ -59,6 +59,10 @@ Interaction with `IsLimit`:
   constructing the morphisms to the point of a limit `PullbackCone` from the universal property.
 * `PullbackCone.IsLimit.hom_ext` provides a convenient way to show that two morphisms to the point
   of a limit `PullbackCone` are equal.
+
+Interaction with `CommSq`:
+* `CommSq.cone` and `CommSq.cocone` provide the implicit (non-limiting) pullback cone and pushout
+  cocone associated with a commuting square
 
 ## References
 * [Stacks: Fibre products](https://stacks.math.columbia.edu/tag/001U)
@@ -107,7 +111,7 @@ theorem condition_one (t : PullbackCone f g) : t.π.app WalkingCospan.one = t.fs
 
 /-- A pullback cone on `f` and `g` is determined by morphisms `fst : W ⟶ X` and `snd : W ⟶ Y`
 such that `fst ≫ f = snd ≫ g`. -/
-@[simps]
+@[implicit_reducible, simps]
 def mk {W : C} (fst : W ⟶ X) (snd : W ⟶ Y) (eq : fst ≫ f = snd ≫ g := by cat_disch) :
     PullbackCone f g where
   pt := W
@@ -183,9 +187,9 @@ def isLimitAux' (t : PullbackCone f g)
           l ≫ t.fst = s.fst ∧
             l ≫ t.snd = s.snd ∧ ∀ {m}, m ≫ t.fst = s.fst → m ≫ t.snd = s.snd → m = l }) :
     Limits.IsLimit t :=
-  PullbackCone.isLimitAux t (fun s => (create s).1) (fun s => (create s).2.1)
-    (fun s => (create s).2.2.1) fun s _ w =>
-    (create s).2.2.2 (w WalkingCospan.left) (w WalkingCospan.right)
+  PullbackCone.isLimitAux t (fun s => (create s).val) (fun s => (create s).property.1)
+    (fun s => (create s).property.2.1) fun s _ w =>
+    (create s).property.2.2 (w WalkingCospan.left) (w WalkingCospan.right)
 
 /-- This is a more convenient formulation to show that a `PullbackCone` constructed using
 `PullbackCone.mk` is a limit cone.
@@ -237,6 +241,7 @@ section Flip
 variable (t : PullbackCone f g)
 
 /-- The pullback cone obtained by flipping `fst` and `snd`. -/
+@[implicit_reducible]
 def flip : PullbackCone g f := PullbackCone.mk _ _ t.condition.symm
 
 @[simp] lemma flip_pt : t.flip.pt = t.pt := rfl
@@ -286,10 +291,10 @@ def PullbackCone.ofCone {F : WalkingCospan ⥤ C} (t : Cone F) :
 composing with `diagramIsoCospan`. -/
 @[simps!]
 def PullbackCone.isoMk {F : WalkingCospan ⥤ C} (t : Cone F) :
-    (Cones.postcompose (diagramIsoCospan.{v} _).hom).obj t ≅
+    (Cone.postcompose (diagramIsoCospan.{v} _).hom).obj t ≅
       PullbackCone.mk (t.π.app WalkingCospan.left) (t.π.app WalkingCospan.right)
         ((t.π.naturality inl).symm.trans (t.π.naturality inr :)) :=
-  Cones.ext (Iso.refl _) <| by
+  Cone.ext (Iso.refl _) <| by
     rintro (_ | (_ | _)) <;> simp
 
 /-- A pushout cocone is just a cocone on the span formed by two morphisms `f : X ⟶ Y` and
@@ -322,12 +327,12 @@ theorem condition_zero (t : PushoutCocone f g) : t.ι.app WalkingSpan.zero = f �
 
 /-- A pushout cocone on `f` and `g` is determined by morphisms `inl : Y ⟶ W` and `inr : Z ⟶ W` such
 that `f ≫ inl = g ↠ inr`. -/
-@[simps]
+@[implicit_reducible, simps]
 def mk {W : C} (inl : Y ⟶ W) (inr : Z ⟶ W) (eq : f ≫ inl = g ≫ inr) : PushoutCocone f g where
   pt := W
   ι := { app := fun j => Option.casesOn j (f ≫ inl) fun j' => WalkingPair.casesOn j' inl inr
          naturality := by
-          rintro (⟨⟩|⟨⟨⟩⟩) (⟨⟩|⟨⟨⟩⟩) <;> intro f <;> cases f <;> dsimp <;> aesop }
+          rintro (⟨⟩ | ⟨⟨⟩⟩) (⟨⟩ | ⟨⟨⟩⟩) <;> intro f <;> cases f <;> dsimp <;> aesop }
 
 @[simp]
 theorem mk_ι_app_left {W : C} (inl : Y ⟶ W) (inr : Z ⟶ W) (eq : f ≫ inl = g ≫ inr) :
@@ -397,8 +402,9 @@ def isColimitAux' (t : PushoutCocone f g)
           t.inl ≫ l = s.inl ∧
             t.inr ≫ l = s.inr ∧ ∀ {m}, t.inl ≫ m = s.inl → t.inr ≫ m = s.inr → m = l }) :
     IsColimit t :=
-  isColimitAux t (fun s => (create s).1) (fun s => (create s).2.1) (fun s => (create s).2.2.1)
-    fun s _ w => (create s).2.2.2 (w WalkingCospan.left) (w WalkingCospan.right)
+  isColimitAux t (fun s => (create s).val) (fun s => (create s).property.1)
+    (fun s => (create s).property.2.1)
+    fun s _ w => (create s).property.2.2 (w WalkingCospan.left) (w WalkingCospan.right)
 
 
 theorem IsColimit.hom_ext {t : PushoutCocone f g} (ht : IsColimit t) {W : C} {k l : t.pt ⟶ W}
@@ -454,6 +460,7 @@ section Flip
 variable (t : PushoutCocone f g)
 
 /-- The pushout cocone obtained by flipping `inl` and `inr`. -/
+@[implicit_reducible]
 def flip : PushoutCocone g f := PushoutCocone.mk _ _ t.condition.symm
 
 @[simp] lemma flip_pt : t.flip.pt = t.pt := rfl
@@ -502,10 +509,50 @@ def PushoutCocone.ofCocone {F : WalkingSpan ⥤ C} (t : Cocone F) :
 `diagramIsoSpan`. -/
 @[simps!]
 def PushoutCocone.isoMk {F : WalkingSpan ⥤ C} (t : Cocone F) :
-    (Cocones.precompose (diagramIsoSpan.{v} _).inv).obj t ≅
+    (Cocone.precompose (diagramIsoSpan.{v} _).inv).obj t ≅
       PushoutCocone.mk (t.ι.app WalkingSpan.left) (t.ι.app WalkingSpan.right)
         ((t.ι.naturality fst).trans (t.ι.naturality snd).symm) :=
-  Cocones.ext (Iso.refl _) <| by
+  Cocone.ext (Iso.refl _) <| by
     rintro (_ | (_ | _)) <;> simp
 
-end CategoryTheory.Limits
+end Limits
+
+namespace CommSq
+open Limits
+variable {C : Type*} [Category* C]
+
+variable {W X Y Z : C} {f : W ⟶ X} {g : W ⟶ Y} {h : X ⟶ Z} {i : Y ⟶ Z}
+
+/-- The (not necessarily limiting) `PullbackCone h i` implicit in the statement
+that we have `CommSq f g h i`.
+-/
+@[implicit_reducible]
+def cone (s : CommSq f g h i) : PullbackCone h i :=
+  PullbackCone.mk _ _ s.w
+
+/-- The (not necessarily limiting) `PushoutCocone f g` implicit in the statement
+that we have `CommSq f g h i`.
+-/
+@[implicit_reducible]
+def cocone (s : CommSq f g h i) : PushoutCocone f g :=
+  PushoutCocone.mk _ _ s.w
+
+@[simp]
+theorem cone_fst (s : CommSq f g h i) : s.cone.fst = f :=
+  rfl
+
+@[simp]
+theorem cone_snd (s : CommSq f g h i) : s.cone.snd = g :=
+  rfl
+
+@[simp]
+theorem cocone_inl (s : CommSq f g h i) : s.cocone.inl = h :=
+  rfl
+
+@[simp]
+theorem cocone_inr (s : CommSq f g h i) : s.cocone.inr = i :=
+  rfl
+
+end CommSq
+
+end CategoryTheory

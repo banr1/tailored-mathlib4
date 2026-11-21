@@ -5,8 +5,9 @@ Authors: Yuma Mizuno
 -/
 module
 
-public meta import Mathlib.Tactic.CategoryTheory.Coherence.PureCoherence
 public meta import Mathlib.Tactic.CategoryTheory.Monoidal.Datatypes
+public import Mathlib.Tactic.CategoryTheory.Coherence.PureCoherence
+public import Mathlib.Tactic.CategoryTheory.Monoidal.Datatypes
 
 /-!
 # Coherence tactic for monoidal categories
@@ -15,7 +16,6 @@ We provide a `monoidal_coherence` tactic,
 which proves that any two morphisms (with the same source and target)
 in a monoidal category which are built out of associators and unitors
 are equal.
-
 -/
 
 public meta section

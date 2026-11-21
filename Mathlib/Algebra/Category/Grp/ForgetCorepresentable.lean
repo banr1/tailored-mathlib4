@@ -5,8 +5,7 @@ Authors: Joël Riou
 -/
 module
 
-public import Mathlib.Algebra.Category.Grp.Basic
-public import Mathlib.CategoryTheory.Yoneda
+public import Mathlib.Algebra.Category.Grp.Preadditive
 
 /-!
 # The forget functor is corepresentable
@@ -14,7 +13,6 @@ public import Mathlib.CategoryTheory.Yoneda
 It is shown that the forget functor `AddCommGrpCat.{u} ⥤ Type u` is corepresentable
 by `ULift ℤ`. Similar results are obtained for the variants `CommGrpCat`, `AddGrpCat`
 and `GrpCat`.
-
 -/
 
 @[expose] public section
@@ -39,14 +37,6 @@ def uliftZMultiplesHom (G : Type u) [AddGroup G] : G ≃ (ULift.{u} ℤ →+ G) 
 @[simps!]
 def uliftZPowersHom (G : Type u) [Group G] : G ≃ (ULift.{u} (Multiplicative ℤ) →* G) :=
   (zpowersHom _).trans MulEquiv.ulift.symm.monoidHomCongrLeftEquiv
-
-namespace MonoidHom
-
-end MonoidHom
-
-namespace AddMonoidHom
-
-end AddMonoidHom
 
 /-- The forget functor `GrpCat.{u} ⥤ Type u` is corepresentable. -/
 def GrpCat.coyonedaObjIsoForget :
@@ -87,3 +77,14 @@ instance AddGrpCat.forget_isCorepresentable :
 instance AddCommGrpCat.forget_isCorepresentable :
     (forget AddCommGrpCat.{u}).IsCorepresentable :=
   Functor.IsCorepresentable.mk' AddCommGrpCat.coyonedaObjIsoForget
+
+theorem uliftZMultiplesHom_apply_add (G : Type u) [AddCommGroup G] (x y : G) :
+    uliftZMultiplesHom G (x + y) = uliftZMultiplesHom G x + uliftZMultiplesHom G y := by
+  ext
+  simp_all only [uliftZMultiplesHom_apply_apply, smul_add, AddMonoidHom.add_apply]
+
+/-- The additive equivalence `(ℤ ⟶ G) ≃+ G` -/
+@[simps!]
+def AddCommGrpCat.uliftZMultiplesAddEquiv (G : AddCommGrpCat) : (of (ULift ℤ) ⟶ G) ≃+ G :=
+  AddCommGrpCat.homAddEquiv.trans
+    (AddEquiv.mk' (uliftZMultiplesHom G) (uliftZMultiplesHom_apply_add G)).symm

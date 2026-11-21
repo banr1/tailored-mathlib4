@@ -24,7 +24,6 @@ the `Finset.sum` operation which computes the additive sum.
 
 @[expose] public section
 
-
 open Function Multiset Sum
 
 namespace Finset
@@ -33,10 +32,10 @@ variable {α β γ : Type*} (s : Finset α) (t : Finset β)
 
 /-- Disjoint sum of finsets. -/
 def disjSum : Finset (α ⊕ β) :=
-  ⟨s.1.disjSum t.1, s.2.disjSum t.2⟩
+  ⟨s.val.disjSum t.val, s.nodup.disjSum t.nodup⟩
 
 @[simp]
-theorem val_disjSum : (s.disjSum t).1 = s.1.disjSum t.1 :=
+theorem val_disjSum : (s.disjSum t).val = s.val.disjSum t.val :=
   rfl
 
 @[simp]
@@ -100,9 +99,6 @@ theorem disjSum_strictMono_left (t : Finset β) : StrictMono fun s : Finset α =
 theorem disjSum_strictMono_right (s : Finset α) :
     StrictMono (s.disjSum : Finset β → Finset (α ⊕ β)) := fun _ _ =>
   disjSum_ssubset_disjSum_of_subset_of_ssubset Subset.rfl
-
-@[deprecated (since := "2025-06-11")]
-alias disj_sum_strictMono_right := disjSum_strictMono_right
 
 @[simp] lemma disjSum_inj {α β : Type*} {s₁ s₂ : Finset α} {t₁ t₂ : Finset β} :
     s₁.disjSum t₁ = s₂.disjSum t₂ ↔ s₁ = s₂ ∧ t₁ = t₂ := by

@@ -6,7 +6,6 @@ Authors: Joël Riou
 module
 
 public import Mathlib.CategoryTheory.Functor.Derived.LeftDerived
-public import Mathlib.CategoryTheory.Functor.KanExtension.Pointwise
 public import Mathlib.CategoryTheory.Localization.StructuredArrow
 
 /-!
@@ -21,7 +20,6 @@ then it has a pointwise left derived functor.
 Note: this file was obtained by dualizing the definitions in the file
 `Mathlib/CategoryTheory/Functor/Derived/PointwiseRightDerived.lean`. These two files should be
 kept in sync.
-
 -/
 
 @[expose] public section

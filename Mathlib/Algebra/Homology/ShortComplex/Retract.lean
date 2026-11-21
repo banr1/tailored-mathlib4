@@ -10,10 +10,9 @@ public import Mathlib.CategoryTheory.MorphismProperty.Retract
 
 /-!
 # Quasi-isomorphisms of short complexes are stable under retracts
-
 -/
 
-@[expose] public section
+public section
 
 namespace CategoryTheory
 

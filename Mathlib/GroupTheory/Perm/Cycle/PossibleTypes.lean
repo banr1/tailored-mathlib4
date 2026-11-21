@@ -12,10 +12,9 @@ public import Mathlib.GroupTheory.Perm.Cycle.Concrete
 * For `m : Multiset ℕ`, `Equiv.Perm.exists_with_cycleType_iff m`
   proves that there are permutations with cycleType `m` if and only if
   its sum is at most `Fintype.card α` and its members are at least 2.
-
 -/
 
-@[expose] public section
+public section
 
 variable (α : Type*) [DecidableEq α] [Fintype α]
 

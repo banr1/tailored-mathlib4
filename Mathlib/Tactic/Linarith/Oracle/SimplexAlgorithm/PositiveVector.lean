@@ -6,8 +6,8 @@ Authors: Vasily Nesterov
 module
 
 public meta import Lean.Meta.Basic
-public meta import Mathlib.Tactic.Linarith.Oracle.SimplexAlgorithm.SimplexAlgorithm
-public meta import Mathlib.Tactic.Linarith.Oracle.SimplexAlgorithm.Gauss
+public import Mathlib.Tactic.Linarith.Oracle.SimplexAlgorithm.Gauss
+public import Mathlib.Tactic.Linarith.Oracle.SimplexAlgorithm.SimplexAlgorithm
 
 /-!
 # `linarith` certificate search as an LP problem
@@ -32,7 +32,6 @@ The function `findPositiveVector` solves this problem.
 
 3. We run the Simplex Algorithm until it finds a solution.
   See the file `SimplexAlgorithm.lean`.
-
 -/
 
 public meta section
@@ -78,7 +77,7 @@ def stateLP {n m : Nat} (A : matType n m) (strictIndexes : List Nat) : matType (
 def extractSolution (tableau : Tableau matType) : Array Rat := Id.run do
   let mut ans : Array Rat := Array.replicate (tableau.basic.size + tableau.free.size - 3) 0
   for h : i in [1:tableau.basic.size] do
-    ans := ans.set! (tableau.basic[i] - 2) <| tableau.mat[(i, tableau.free.size - 1)]!
+    ans := ans.set! (tableau.basic[i] - 2) tableau.mat[(i, tableau.free.size - 1)]!
   return ans
 
 /--

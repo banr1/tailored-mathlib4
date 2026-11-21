@@ -17,7 +17,6 @@ along with their compatibilities with shifts into the definition
 `CochainComplex.singleFunctors C : SingleFunctors C (CochainComplex C ℤ) ℤ`.
 Similarly, we define
 `HomotopyCategory.singleFunctors C : SingleFunctors C (HomotopyCategory C (ComplexShape.up ℤ)) ℤ`.
-
 -/
 
 @[expose] public section
@@ -35,9 +34,9 @@ namespace CochainComplex
 open HomologicalComplex
 
 /-- The collection of all single functors `C ⥤ CochainComplex C ℤ` along with
-their compatibilites with shifts. (This definition has purposely no `simps`
+their compatibilities with shifts. (This definition has purposely no `simps`
 attribute, as the generated lemmas would not be very useful.) -/
-noncomputable def singleFunctors : SingleFunctors C (CochainComplex C ℤ) ℤ where
+noncomputable abbrev singleFunctors : SingleFunctors C (CochainComplex C ℤ) ℤ where
   functor n := single _ _ n
   shiftIso n a a' ha' := NatIso.ofComponents
     (fun X => Hom.isoOfComponents
@@ -47,7 +46,7 @@ noncomputable def singleFunctors : SingleFunctors C (CochainComplex C ℤ) ℤ w
         · subst h
           simp only [Functor.comp_obj, shiftFunctor_obj_X', single_obj_X_self]
         · dsimp [single]
-          rw [if_neg h, if_neg (fun h' => h (by lia))])))
+          rw [ite_eq_right h, ite_eq_right (fun h' => h (by lia))])))
     (fun {X Y} f => by
       obtain rfl : a' = a + n := by lia
       ext
@@ -91,6 +90,19 @@ instance (n : ℤ) : (singleFunctor C n).Faithful :=
   inferInstanceAs (single _ _ _).Faithful
 
 end CochainComplex
+
+section
+
+variable {C} {D : Type u'} [Category.{v'} D] [Abelian D]
+variable (F : C ⥤ D) [F.Additive] [PreservesFiniteLimits F] [PreservesFiniteColimits F]
+
+/-- `CochainComplex.singleFunctor` commutes with `F` and `F.mapHomologicalComplex`. -/
+noncomputable def CategoryTheory.Functor.mapCochainComplexSingleFunctor (n : ℤ) :
+    CochainComplex.singleFunctor C n ⋙ F.mapHomologicalComplex (ComplexShape.up ℤ) ≅
+      F ⋙ CochainComplex.singleFunctor D n :=
+  HomologicalComplex.singleMapHomologicalComplex F (ComplexShape.up ℤ) n
+
+end
 
 namespace HomotopyCategory
 

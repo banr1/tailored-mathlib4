@@ -12,10 +12,9 @@ public import Mathlib.Geometry.Euclidean.Angle.Unoriented.Basic
 # Angles and conformal maps
 
 This file proves that conformal maps preserve angles.
-
 -/
 
-@[expose] public section
+public section
 
 
 namespace InnerProductGeometry

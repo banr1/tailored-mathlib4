@@ -5,7 +5,9 @@ Authors: Joël Riou
 -/
 module
 
-public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.CommSq
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Defs
+
+import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Mono
 
 /-!
 # Relation between mono/epi and pullback/pushout squares
@@ -23,11 +25,9 @@ X ⟶ Y
 ```
 
 is a pullback square.
-
-
 -/
 
-@[expose] public section
+public section
 
 namespace CategoryTheory
 

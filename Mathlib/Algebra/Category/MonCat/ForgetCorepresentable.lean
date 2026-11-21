@@ -16,7 +16,6 @@ public import Mathlib.CategoryTheory.Yoneda
 The forgetful functor `AddCommMonCat.{u} ⥤ Type u` is corepresentable
 by `ULift ℕ`. Similar results are obtained for the variants `CommMonCat`, `AddMonCat`
 and `MonCat`.
-
 -/
 
 @[expose] public section
@@ -44,14 +43,6 @@ of `Multiplicative.ofAdd 1`. -/
 @[simps!]
 def uliftPowersHom (M : Type u) [Monoid M] : M ≃ (ULift.{u} (Multiplicative ℕ) →* M) :=
   (powersHom _).trans MulEquiv.ulift.symm.monoidHomCongrLeftEquiv
-
-namespace MonoidHom
-
-end MonoidHom
-
-namespace AddMonoidHom
-
-end AddMonoidHom
 
 /-- The forgetful functor `MonCat.{u} ⥤ Type u` is corepresentable. -/
 def MonCat.coyonedaObjIsoForget :

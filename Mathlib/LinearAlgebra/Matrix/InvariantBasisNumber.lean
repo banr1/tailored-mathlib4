@@ -5,22 +5,25 @@ Authors: Kim Morrison
 -/
 module
 
-public import Mathlib.Algebra.Module.Projective
-public import Mathlib.LinearAlgebra.Matrix.ToLin
-public import Mathlib.LinearAlgebra.Matrix.SemiringInverse
 public import Mathlib.LinearAlgebra.InvariantBasisNumber
+public import Mathlib.LinearAlgebra.Matrix.SemiringInverse
+public import Mathlib.LinearAlgebra.Matrix.ToLin
 
 /-!
 # Invertible matrices over a ring with invariant basis number are square.
 -/
 
-@[expose] public section
+public section
 
 section
 
 open Function Matrix LinearMap
 
 variable {R : Type*} [Semiring R]
+
+instance (priority := low) [OrzechProperty R] : IsStablyFiniteRing R :=
+  isStablyFiniteRing_iff_injective_of_surjective.mpr fun _ ↦
+    OrzechProperty.injective_of_surjective_endomorphism
 
 instance (priority := low) [IsStablyFiniteRing R] [Nontrivial R] : RankCondition R where
   le_of_fin_surjective {n m} f hf := by
@@ -55,11 +58,11 @@ protected theorem MulOpposite.rankCondition_iff : RankCondition Rᵐᵒᵖ ↔ R
   simp_rw [rankCondition_iff_matrix, ← opEquiv.mapMatrix.forall_congr_right,
     ← opEquiv.mapMatrix.symm.injective.eq_iff]
   congr! 2 with n m
-  refine forall_swap.trans <| .trans (forall_congr' ?_) (transposeAddEquiv ..).forall_congr_right
+  refine forall_comm.trans <| .trans (forall_congr' ?_) (transposeAddEquiv ..).forall_congr_right
   refine fun f ↦ .trans (forall_congr' fun g ↦ ?_) (transposeAddEquiv ..).forall_congr_right
   rw [← (transposeAddEquiv ..).injective.eq_iff]
-  congrm(?_ = ?_ → _)
-  · ext; simp [map, mul_apply]
+  congrm (?_ = ?_ → _)
+  · ext; simp [map, Matrix.mul_apply]
   · simp
 
 /-- Invariant basis number is left-right symmetric. -/
@@ -68,11 +71,13 @@ protected theorem MulOpposite.invariantBasisNumber_iff :
   simp_rw [invariantBasisNumber_iff_matrix, ← opEquiv.mapMatrix.forall_congr_right,
     ← opEquiv.mapMatrix.symm.injective.eq_iff]
   congr! 2 with n m
-  refine forall_swap.trans <| .trans (forall_congr' ?_) (transposeAddEquiv ..).forall_congr_right
+  refine forall_comm.trans <| .trans (forall_congr' ?_) (transposeAddEquiv ..).forall_congr_right
   refine fun f ↦ .trans (forall_congr' fun g ↦ ?_) (transposeAddEquiv ..).forall_congr_right
   rw [← (transposeAddEquiv ..).injective.eq_iff, ← (transposeAddEquiv (Fin m) ..).injective.eq_iff]
-  congrm(?_ = ?_ → ?_ = ?_ → _)
-  iterate 2 ext; simp [map, mul_apply]; simp
+  congrm (?_ = ?_ → ?_ = ?_ → _)
+  iterate 2
+  · ext; simp [map, Matrix.mul_apply]
+  · simp
 
 instance [RankCondition R] : RankCondition Rᵐᵒᵖ := MulOpposite.rankCondition_iff.mpr ‹_›
 

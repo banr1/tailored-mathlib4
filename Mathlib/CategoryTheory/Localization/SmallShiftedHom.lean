@@ -6,8 +6,8 @@ Authors: Joël Riou
 module
 
 public import Mathlib.CategoryTheory.Localization.SmallHom
-public import Mathlib.CategoryTheory.Shift.ShiftedHom
 public import Mathlib.CategoryTheory.Shift.Localization
+public import Mathlib.CategoryTheory.Shift.ShiftedHom
 
 /-!
 # Shrinking morphisms in localized categories equipped with shifts
@@ -21,7 +21,6 @@ we define types `SmallShiftedHom.{w} W X Y m : Type w` for all `m : M`,
 and endow these with a composition which transports the composition
 on the types `ShiftedHom (L.obj X) (L.obj Y) m` when `L : C ⥤ D` is
 any localization functor for `W`.
-
 -/
 
 @[expose] public section
@@ -121,6 +120,7 @@ end SmallHom
 /-- The type of morphisms from `X` to `Y⟦m⟧` in the localized category
 with respect to `W : MorphismProperty C` that is shrunk to `Type w`
 when `HasSmallLocalizedShiftedHom.{w} W X Y` holds. -/
+@[implicit_reducible]
 def SmallShiftedHom (X Y : C) [HasSmallLocalizedShiftedHom.{w} W M X Y] (m : M) : Type w :=
   SmallHom W X (Y⟦m⟧)
 
@@ -175,7 +175,7 @@ end
 section
 
 variable (L : C ⥤ D) [L.IsLocalization W] [L.CommShift M]
-  {X Y Z T : C}
+  {X Y Z : C}
 
 /-- The bijection `SmallShiftedHom.{w} W X Y m ≃ ShiftedHom (L.obj X) (L.obj Y) m`
 for all `m : M`, and `X` and `Y` in `C` when `L : C ⥤ D` is a localization functor for
@@ -193,6 +193,7 @@ lemma equiv_apply [HasSmallLocalizedShiftedHom.{w} W M X Y] {m : M}
 section
 variable [W.IsCompatibleWithShift M]
 
+set_option backward.isDefEq.respectTransparency false in
 lemma equiv_shift' {a : M} [HasSmallLocalizedShiftedHom.{w} W M X Y]
     [HasSmallLocalizedShiftedHom.{w} W M Y Y]
     (f : SmallShiftedHom.{w} W X Y a) (n a' : M) (h : a + n = a') :
@@ -203,6 +204,7 @@ lemma equiv_shift' {a : M} [HasSmallLocalizedShiftedHom.{w} W M X Y]
     L.commShiftIso_add' h, Functor.CommShift.isoAdd'_inv_app, Iso.inv_hom_id_app_assoc,
     ← Functor.map_comp_assoc, Iso.hom_inv_id_app, Functor.comp_obj, comp_id]
 
+set_option backward.isDefEq.respectTransparency false in
 lemma equiv_shift {a : M} [HasSmallLocalizedShiftedHom.{w} W M X Y]
     [HasSmallLocalizedShiftedHom.{w} W M Y Y]
     (f : SmallShiftedHom.{w} W X Y a) (n a' : M) (h : a + n = a') :
@@ -213,6 +215,7 @@ lemma equiv_shift {a : M} [HasSmallLocalizedShiftedHom.{w} W M X Y]
   simp only [Functor.comp_obj, assoc, Iso.inv_hom_id_app, comp_id, Functor.map_comp]
   rfl
 
+set_option backward.isDefEq.respectTransparency false in
 lemma equiv_comp [HasSmallLocalizedShiftedHom.{w} W M X Y]
     [HasSmallLocalizedShiftedHom.{w} W M Y Z] [HasSmallLocalizedShiftedHom.{w} W M X Z]
     [HasSmallLocalizedShiftedHom.{w} W M Z Z] {a b c : M}
@@ -232,6 +235,7 @@ lemma equiv_mk [HasSmallLocalizedShiftedHom.{w} W M X Y] {m : M} (f : ShiftedHom
   ((L.commShiftIso m).app Y).homToEquiv.symm.injective
     ((Equiv.symm_apply_apply ..).trans (by simp [ShiftedHom.map, mk]))
 
+set_option backward.isDefEq.respectTransparency false in
 @[simp]
 lemma equiv_mk₀ [HasSmallLocalizedShiftedHom.{w} W M X Y]
     (m₀ : M) (hm₀ : m₀ = 0) (f : X ⟶ Y) :
@@ -302,7 +306,7 @@ lemma comp_mk₀_id {X Y : C} [HasSmallLocalizedShiftedHom.{w} W M X Y]
     [HasSmallLocalizedShiftedHom.{w} W M Y Y]
     [W.IsCompatibleWithShift M] {m : M}
     (α : SmallShiftedHom.{w} W X Y m) (m₀ : M) (hm₀ : m₀ = 0) :
-    α.comp (mk₀ W m₀ hm₀ (𝟙 Y)) (by aesop) = α :=
+    α.comp (mk₀ W m₀ hm₀ (𝟙 Y)) (by simp_all) = α :=
   (equiv W W.Q).injective (by simp [equiv_comp])
 
 variable {W} in
@@ -312,7 +316,7 @@ lemma mk₀_id_comp {X Y : C} [HasSmallLocalizedShiftedHom.{w} W M X Y]
     [HasSmallLocalizedShiftedHom.{w} W M Y Y]
     [W.IsCompatibleWithShift M] {m : M}
     (α : SmallShiftedHom.{w} W X Y m) (m₀ : M) (hm₀ : m₀ = 0) :
-    (mk₀ W m₀ hm₀ (𝟙 X)).comp α (by aesop) = α :=
+    (mk₀ W m₀ hm₀ (𝟙 X)).comp α (by simp_all) = α :=
   (equiv W W.Q).injective (by simp [equiv_comp])
 
 variable {W} in
@@ -366,6 +370,7 @@ noncomputable def chgUniv {X Y : C} {m : M}
     SmallShiftedHom.{w} W X Y m ≃ SmallShiftedHom.{w''} W X Y m :=
   SmallHom.chgUniv
 
+set_option backward.isDefEq.respectTransparency false in
 lemma equiv_chgUniv (L : C ⥤ D) [L.IsLocalization W] [L.CommShift M] {X Y : C} {m : M}
     [HasSmallLocalizedShiftedHom.{w} W M X Y]
     [HasSmallLocalizedShiftedHom.{w''} W M X Y]

@@ -19,7 +19,6 @@ public import Mathlib.Data.Finset.Insert
 ## Tags
 
 finite sets, finset
-
 -/
 
 @[expose] public section
@@ -28,11 +27,9 @@ finite sets, finset
 -- Note that we cannot use `List.sublists` itself as that is defined very early.
 assert_not_exists List.sublistsLen Multiset.powerset CompleteLattice Monoid
 
-open Multiset Subtype Function
+open Multiset Function
 
-universe u
-
-variable {α : Type*} {β : Type*} {γ : Type*}
+variable {ι α β γ : Type*}
 
 namespace Finset
 
@@ -62,7 +59,7 @@ theorem disjoint_iff_ne : Disjoint s t ↔ ∀ a ∈ s, ∀ b ∈ t, a ≠ b := 
   simp only [disjoint_left, imp_not_comm, forall_eq']
 
 @[simp]
-theorem disjoint_val : Disjoint s.1 t.1 ↔ Disjoint s t :=
+theorem disjoint_val : Disjoint s.val t.val ↔ Disjoint s t :=
   Multiset.disjoint_left.trans disjoint_left.symm
 
 theorem _root_.Disjoint.forall_ne_finset (h : Disjoint s t) (ha : a ∈ s) (hb : b ∈ t) : a ≠ b :=
@@ -86,7 +83,9 @@ theorem disjoint_empty_left (s : Finset α) : Disjoint ∅ s :=
 theorem disjoint_empty_right (s : Finset α) : Disjoint s ∅ :=
   disjoint_bot_right
 
-@[simp]
+-- Higher priority than `disjoint_singleton_right` to make sure `Disjoint {a} {b}`
+-- simplifies to `a ≠ b`.
+@[simp default + 1]
 theorem disjoint_singleton_left : Disjoint (singleton a) s ↔ a ∉ s := by
   simp only [disjoint_left, mem_singleton, forall_eq]
 
@@ -110,6 +109,10 @@ theorem pairwiseDisjoint_coe {ι : Type*} {s : Set ι} {f : ι → Finset α} :
     s.PairwiseDisjoint (fun i => f i : ι → Set α) ↔ s.PairwiseDisjoint f :=
   forall₅_congr fun _ _ _ _ _ => disjoint_coe
 
+@[simp] lemma pairwiseDisjoint_singleton_iff_injOn {s : Set ι} {f : ι → α} :
+    s.PairwiseDisjoint (fun i ↦ ({f i} : Finset α)) ↔ s.InjOn f := by
+  simp [Set.PairwiseDisjoint, Set.Pairwise, not_imp_not, Set.InjOn]
+
 variable [DecidableEq α]
 
 instance decidableDisjoint (U V : Finset α) : Decidable (Disjoint U V) :=
@@ -125,7 +128,7 @@ It is the same as `s ∪ t`, but it does not require decidable equality on the t
 ensures that the sets are disjoint. -/
 @[simps]
 def disjUnion (s t : Finset α) (h : Disjoint s t) : Finset α :=
-  ⟨s.1 + t.1, Multiset.nodup_add.2 ⟨s.2, t.2, disjoint_val.2 h⟩⟩
+  ⟨s.val + t.val, Multiset.nodup_add.2 ⟨s.nodup, t.nodup, disjoint_val.2 h⟩⟩
 
 @[simp, grind =]
 theorem mem_disjUnion {α s t h a} : a ∈ @disjUnion α s t h ↔ a ∈ s ∨ a ∈ t := by

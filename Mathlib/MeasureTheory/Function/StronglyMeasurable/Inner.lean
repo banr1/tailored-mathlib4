@@ -10,10 +10,9 @@ public import Mathlib.MeasureTheory.Function.StronglyMeasurable.AEStronglyMeasur
 
 /-!
 # Inner products of strongly measurable functions are strongly measurable.
-
 -/
 
-@[expose] public section
+public section
 
 variable {α 𝕜 E : Type*} [RCLike 𝕜] [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
 

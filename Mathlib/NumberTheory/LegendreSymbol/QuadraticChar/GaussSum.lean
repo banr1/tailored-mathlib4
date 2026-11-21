@@ -5,17 +5,16 @@ Authors: Michael Stoll
 -/
 module
 
-public import Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic
 public import Mathlib.NumberTheory.GaussSum
+public import Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic
 
 /-!
 # Quadratic characters of finite fields
 
 Further facts relying on Gauss sums.
-
 -/
 
-@[expose] public section
+public section
 
 
 /-!

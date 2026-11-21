@@ -18,26 +18,26 @@ and `c : M`, then `(.mk c : Mᵈᵐᵃ) • [f]` is represented by the function 
 We also prove basic properties of this action.
 -/
 
-@[expose] public section
+public section
 
 open MeasureTheory Filter
 open scoped ENNReal
 
 namespace DomMulAct
 
-variable {M N α E : Type*} [MeasurableSpace M] [MeasurableSpace N]
-  [MeasurableSpace α] [NormedAddCommGroup E] {μ : MeasureTheory.Measure α} {p : ℝ≥0∞}
+variable {M N α E : Type*} [MeasurableSpace α] [NormedAddCommGroup E]
+  {μ : MeasureTheory.Measure α} {p : ℝ≥0∞}
 
 section SMul
 
-variable [SMul M α] [SMulInvariantMeasure M α μ] [MeasurableSMul M α]
+variable [SMul M α] [SMulInvariantMeasure M α μ] [MeasurableConstSMul M α]
 
 @[to_additive]
 instance : SMul Mᵈᵐᵃ (Lp E p μ) where
   smul c f := Lp.compMeasurePreserving (mk.symm c • ·) (measurePreserving_smul _ _) f
 
 @[to_additive (attr := simp)]
-theorem smul_Lp_val (c : Mᵈᵐᵃ) (f : Lp E p μ) : (c • f).1 = c • f.1 := rfl
+theorem smul_Lp_val (c : Mᵈᵐᵃ) (f : Lp E p μ) : (c • f).val = c • f.val := rfl
 
 @[to_additive]
 theorem smul_Lp_ae_eq (c : Mᵈᵐᵃ) (f : Lp E p μ) : c • f =ᵐ[μ] (f <| mk.symm c • ·) :=
@@ -62,7 +62,7 @@ theorem mk_smul_indicatorConstLp (c : M)
         (by rwa [SMulInvariantMeasure.measure_preimage_smul c hs]) b :=
   rfl
 
-instance [SMul N α] [SMulCommClass M N α] [SMulInvariantMeasure N α μ] [MeasurableSMul N α] :
+instance [SMul N α] [SMulCommClass M N α] [SMulInvariantMeasure N α μ] [MeasurableConstSMul N α] :
     SMulCommClass Mᵈᵐᵃ Nᵈᵐᵃ (Lp E p μ) :=
   Subtype.val_injective.smulCommClass (fun _ _ ↦ rfl) fun _ _ ↦ rfl
 
@@ -104,12 +104,14 @@ theorem norm_smul_Lp (c : Mᵈᵐᵃ) (f : Lp E p μ) : ‖c • f‖ = ‖f‖ 
   Lp.norm_compMeasurePreserving _ _
 
 @[to_additive (attr := simp)]
-theorem nnnorm_smul_Lp (c : Mᵈᵐᵃ) (f : Lp E p μ) : ‖c • f‖₊ = ‖f‖₊ :=
+theorem nnNorm_smul_Lp (c : Mᵈᵐᵃ) (f : Lp E p μ) : ‖c • f‖₊ = ‖f‖₊ :=
   NNReal.eq <| Lp.norm_compMeasurePreserving _ _
+
+@[to_additive (attr := deprecated (since := "2026-10-31"))] alias nnnorm_smul_Lp := nnNorm_smul_Lp
 
 @[to_additive (attr := simp)]
 theorem dist_smul_Lp (c : Mᵈᵐᵃ) (f g : Lp E p μ) : dist (c • f) (c • g) = dist f g := by
-  simp only [dist, ← smul_Lp_sub, norm_smul_Lp]
+  simp only [dist, ← smul_Lp_neg, ← smul_Lp_add, norm_smul_Lp]
 
 @[to_additive (attr := simp)]
 theorem edist_smul_Lp (c : Mᵈᵐᵃ) (f g : Lp E p μ) : edist (c • f) (c • g) = edist f g := by
@@ -124,7 +126,7 @@ end SMul
 
 section MulAction
 
-variable [Monoid M] [MulAction M α] [SMulInvariantMeasure M α μ] [MeasurableSMul M α]
+variable [Monoid M] [MulAction M α] [SMulInvariantMeasure M α μ] [MeasurableConstSMul M α]
 
 @[to_additive]
 instance : MulAction Mᵈᵐᵃ (Lp E p μ) := Subtype.val_injective.mulAction _ fun _ _ ↦ rfl

@@ -7,7 +7,9 @@ module
 
 public import Mathlib.Analysis.Normed.Field.Lemmas
 public import Mathlib.Analysis.SpecificLimits.Basic
-public import Mathlib.Topology.MetricSpace.ProperSpace
+
+set_option doc.verso true
+set_option doc.verso.suggestions false
 
 /-!
 # Proper nontrivially normed fields
@@ -25,7 +27,7 @@ This is a special case of `ProperSpace.of_locallyCompactSpace` from
 with a proof that requires fewer imports.
 -/
 
-@[expose] public section
+public section
 
 assert_not_exists FiniteDimensional
 

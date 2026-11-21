@@ -5,9 +5,11 @@ Authors: Mitchell Horner
 -/
 module
 
-public import Mathlib.Analysis.SpecificLimits.Basic
 public import Mathlib.Analysis.Asymptotics.AsymptoticEquivalent
-public import Mathlib.Data.Nat.Cast.Field
+
+import Mathlib.Analysis.Asymptotics.Theta
+import Mathlib.Analysis.SpecificLimits.Basic
+import Mathlib.Data.Nat.Cast.Field
 
 /-!
 # Binomial coefficients and factorial variants
@@ -21,7 +23,7 @@ This file proves asymptotic theorems for binomial coefficients and factorial var
 * `isTheta_choose` is the proof that `n.choose k = Θ(n^k)` as `n → ∞`.
 -/
 
-@[expose] public section
+public section
 
 
 open Asymptotics Filter Nat Topology

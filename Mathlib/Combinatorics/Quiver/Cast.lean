@@ -5,16 +5,13 @@ Authors: Antoine Labelle, Rémi Bottinelli
 -/
 module
 
-public import Mathlib.Combinatorics.Quiver.Basic
 public import Mathlib.Combinatorics.Quiver.Path
 
 /-!
-
 # Rewriting arrows and paths along vertex equalities
 
 This file defines `Hom.cast` and `Path.cast` (and associated lemmas) in order to allow
 rewriting arrows and paths along equalities of their endpoints.
-
 -/
 
 @[expose] public section
@@ -22,7 +19,7 @@ rewriting arrows and paths along equalities of their endpoints.
 
 universe v v₁ v₂ u u₁ u₂
 
-variable {U : Type*} [Quiver.{u + 1} U]
+variable {U : Type*} [Quiver.{u} U]
 
 
 namespace Quiver

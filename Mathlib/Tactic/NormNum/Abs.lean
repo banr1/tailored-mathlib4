@@ -5,14 +5,16 @@ Authors: David Renshaw
 -/
 module
 
-public meta import Mathlib.Tactic.NormNum.Basic
-public meta import Mathlib.Data.Nat.Cast.Order.Ring
+public import Mathlib.Data.Nat.Cast.Order.Ring
+public import Mathlib.Tactic.NormNum.Basic
 
+set_option doc.verso true
+set_option doc.verso.suggestions false
 
 /-!
 # `norm_num` plugin for `abs`
 
-TODO: plugins for `mabs`, `norm`, `nnorm`, and `enorm`.
+TODO: plugins for `mabs`, `norm`, `nnorm`, and `eNorm`.
 -/
 
 public meta section
