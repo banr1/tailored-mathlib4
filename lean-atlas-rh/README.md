@@ -92,3 +92,44 @@ lake env lean --run lean-atlas-rh/ForwardDeps.lean riemannZeta Complex Real Riem
 | `CheckRHStatement.lean` / `.stdout.txt` | `RiemannHypothesis` を `pp.explicit` で表示した結果 |
 | `lakefile.diff` | `lakefile.lean` への変更 |
 | `lean-atlas-v4.37-compat.patch` | `.lake/packages/lean-atlas` への互換パッチ（`lake update` で消えるので再適用が必要） |
+
+## `riemannZeta` の依存から `ℂ`・`ℝ` の依存を除いた 8431 個の分類
+
+構造体のフィールドも追跡した集計（`*_forward_atlas+ctor.txt`）で集合差を取った。
+
+| | 個数 |
+| --- | ---: |
+| `riemannZeta` の依存 | 8983 |
+| `Complex` の依存 ∪ `Real` の依存（`Real` の依存 550 ⊂ `Complex` の依存 551） | 551 |
+| 差（`riemannZeta` − (`Complex` ∪ `Real`)） | 8432 |
+| さらに `Complex` 自身を除く | **8431** |
+
+```bash
+# 集合差（python で計算）→ riemannZeta_minus_Complex_Real.txt
+# 各宣言の定義モジュールを取得
+lake env lean --run lean-atlas-rh/ModuleOf.lean lean-atlas-rh/riemannZeta_minus_Complex_Real.txt lean-atlas-rh/riemannZeta_minus_Complex_Real_modules.tsv
+```
+
+Mathlib の 1 段目のディレクトリで集計し、近いものをまとめた分類:
+
+| # | 分類 | 含むディレクトリ | 個数 | 割合 |
+| --- | --- | --- | ---: | ---: |
+| 1 | 代数 | `Algebra` 2432 / `RingTheory` 152 / `LinearAlgebra` 130 / `GroupTheory` 47 | 2761 | 32.7% |
+| 2 | 順序・論理・集合論 | `Order` 1588 / `Logic` 188 / `SetTheory` 85 | 1861 | 22.1% |
+| 3 | 位相 | `Topology` 1110 | 1110 | 13.2% |
+| 4 | データ構造 | `Data` 1063（`Set` 347, `Multiset` 199, `Finset` 170 など） | 1063 | 12.6% |
+| 5 | 解析・測度論 | `Analysis` 621 / `MeasureTheory` 432 | 1053 | 12.5% |
+| 6 | 基本的な数と概念 | `Basic` 458（`ENNReal` 109, `Complex` 82, `Real` 63, `NNReal` 44 など） | 458 | 5.4% |
+| 7 | その他 | `Tactic` 104 / `NumberTheory` 16 / `Lean` 5 | 125 | 1.5% |
+| | 合計 | | 8431 | 100% |
+
+- ゼータ関数固有の数論部分はわずか 16 個（`LSeries.AbstractFuncEq` 9, `HurwitzZetaEven` 5, `JacobiTheta` 2）。
+  大半は代数・順序・位相・集合などの汎用基盤。
+- `Tactic` の 104 個は `ring` / `norm_num` などが内部で使う補題（定義本体中の証明から参照される）。
+- `Basic` はこのフォーク独自のディレクトリ。`Complex`・`Real` の依存を除いても、その上の演算・補題（`Basic.Complex` 等）は残る。
+
+| ファイル | 内容 |
+| --- | --- |
+| `riemannZeta_minus_Complex_Real.txt` | 8431 個の宣言一覧 |
+| `riemannZeta_minus_Complex_Real_modules.tsv` | 宣言名と定義モジュールの対応 |
+| `ModuleOf.lean` | 宣言名 → 定義モジュールを調べるスクリプト |

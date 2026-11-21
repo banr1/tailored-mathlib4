@@ -1068,3 +1068,8 @@ $ lake env lean --run lean-atlas-rh/ForwardDeps.lean riemannZeta Complex Real Ri
 == union of all targets: atlas 8975, atlas+ctor 8984 ==
 # exit code: 0, elapsed: 10s
 
+$ lake env lean --run lean-atlas-rh/ModuleOf.lean lean-atlas-rh/riemannZeta_minus_Complex_Real.txt lean-atlas-rh/riemannZeta_minus_Complex_Real_modules.tsv 2>&1 | grep -v "local changes\|packages/lean-atlas"
+# started: 2026-11-22 00:21:43
+wrote 8431 rows to lean-atlas-rh/riemannZeta_minus_Complex_Real_modules.tsv
+# exit code: 0, elapsed: 17s
+
