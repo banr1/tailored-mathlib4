@@ -102,7 +102,7 @@ jobs:
       # so we skip it for all bot accounts; allowed bots are validated in the next step
       - if: ${{ steps.merge_or_delegate.outputs.mOrD != '' && ! endsWith(steps.bridge.outputs.author, '[bot]') }}
         name: Check whether user is part of mathlib-reviewers team
-        uses: tspascoal/get-user-teams-membership@b2546c5affc730fd8e3d8483ae9ad3621938c2f9 # v4.0.2
+        uses: tspascoal/get-user-teams-membership@239f45b779d25e70c2e669134c6ed90826f008a1 # v4.0.3
         id: actorTeams
         with:
           organization: leanprover-community # optional. Default value ${{ github.repository_owner }}

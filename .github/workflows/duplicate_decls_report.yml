@@ -28,7 +28,7 @@ jobs:
         persist-credentials: false
 
     - name: Configure Lean
-      uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+      uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
       with:
         auto-config: false
         use-github-cache: false
@@ -79,7 +79,7 @@ jobs:
     - name: Upload the full report
       # Also upload a partial report when the report step fails.
       if: ${{ !cancelled() }}
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       with:
         name: dup-decls-report
         path: dup_decls_report.txt

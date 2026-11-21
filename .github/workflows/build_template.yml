@@ -795,7 +795,7 @@ jobs:
 
       - &configure_lean_for_cache
         name: Configure Lean
-        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64 # v1.7.0
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
         with:
           auto-config: false # Don't run `lake build`, `lake test`, or `lake lint` automatically.
           use-github-cache: false
@@ -985,7 +985,7 @@ jobs:
           head-sha: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Configure Lean
-        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64 # v1.7.0
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
         with:
           auto-config: false # Don't run `lake build`, `lake test`, or `lake lint` automatically.
           use-github-cache: false
@@ -1327,7 +1327,7 @@ jobs:
           contains(steps.PR.outputs.pr_labels, 'auto-merge-after-CI') &&
           steps.get-label-actor.outputs.actor_type == 'User'
         name: check team membership
-        uses: tspascoal/get-user-teams-membership@b2546c5affc730fd8e3d8483ae9ad3621938c2f9 # v4.0.2
+        uses: tspascoal/get-user-teams-membership@239f45b779d25e70c2e669134c6ed90826f008a1 # v4.0.3
         id: actorTeams
         with:
           organization: leanprover-community # optional. Default value ${{ github.repository_owner }}

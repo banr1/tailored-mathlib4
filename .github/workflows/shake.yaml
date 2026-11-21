@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Configure Lean
-        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64 # v1.7.0
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
         with:
           auto-config: false
           use-github-cache: false
@@ -107,7 +107,7 @@ jobs:
       - name: Create Pull Request
         id: pr
         if: steps.shake.outputs.changed == 'true' && toJson(inputs.dry_run) != 'true'
-        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
         with:
           author: "mathlib-nolints[bot] <258989889+mathlib-nolints[bot]@users.noreply.github.com>"
           token: "${{ steps.app-token.outputs.token }}"
