@@ -1,0 +1,19 @@
+warning: lean-atlas: repository has local changes:
+  /Users/banri/workspace/tailored-mathlib4/.lake/packages/lean-atlas
+== riemannZeta (definition) ==
+  [atlas] dependencies: 8974 (definitions 3169, theorems 5805)
+  [atlas+ctor] dependencies: 8983 (definitions 3178, theorems 5805)
+  direct (atlas+ctor): [Real, AddCommGroup.toAddGroup, SubtractionMonoid.toSubNegZeroMonoid, SubNegZeroMonoid.toNegZeroClass, Real.instAddCommGroup, SubtractionCommMonoid.toSubtractionMonoid, Real.instOne, UnitAddCircle, QuotientAddGroup.Quotient.addCommGroup, AddSubgroup.zmultiples, Complex, AddCommGroup.toDivisionAddCommMonoid, HurwitzZeta.hurwitzZetaEven, NegZeroClass.toZero]
+== Complex (structure) ==
+  [atlas] dependencies: 0 (definitions 0, theorems 0)
+  [atlas+ctor] dependencies: 551 (definitions 311, theorems 240)
+  direct (atlas+ctor): [Real]
+== Real (structure) ==
+  [atlas] dependencies: 0 (definitions 0, theorems 0)
+  [atlas+ctor] dependencies: 550 (definitions 310, theorems 240)
+  direct (atlas+ctor): [abs, IsAbsoluteValue.abs_isAbsoluteValue, CauSeq.Completion.Cauchy, Rat.linearOrder, Rat.instLattice, Rat.instDivisionRing, DivisionRing.toRing, Rat.instField, Rat.instIsStrictOrderedRing, Rat.addGroup]
+== RiemannHypothesis (definition) ==
+  [atlas] dependencies: 8975 (definitions 3170, theorems 5805)
+  [atlas+ctor] dependencies: 8984 (definitions 3179, theorems 5805)
+  direct (atlas+ctor): [Real, riemannZeta, Real.instDivInvMonoid, Complex.instZero, Complex.instMul, Complex.instNatCast, Complex.re, Real.instOne, DivInvMonoid.toDiv, Complex.instAdd, Complex, instOfNatAtLeastTwo, Complex.instOne, Complex.instNeg, Real.instNatCast]
+== union of all targets: atlas 8975, atlas+ctor 8984 ==

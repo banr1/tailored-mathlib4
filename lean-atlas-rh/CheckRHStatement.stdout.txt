@@ -1,0 +1,30 @@
+warning: lean-atlas: repository has local changes:
+  /Users/banri/workspace/tailored-mathlib4/.lake/packages/lean-atlas
+def RiemannHypothesis : Prop :=
+∀ (s : Complex),
+  @Eq Complex (riemannZeta s) (@OfNat.ofNat Complex (nat_lit 0) (@Zero.toOfNat0 Complex Complex.instZero)) →
+    Not
+        (∃ n,
+          @Eq Complex s
+            (@HMul.hMul Complex Complex Complex (@instHMul Complex Complex.instMul)
+              (@Neg.neg Complex Complex.instNeg
+                (@OfNat.ofNat Complex (nat_lit 2)
+                  (@instOfNatAtLeastTwo Complex (nat_lit 2) Complex.instNatCast RiemannHypothesis._proof_1)))
+              (@HAdd.hAdd Complex Complex Complex (@instHAdd Complex Complex.instAdd)
+                (@Nat.cast Complex Complex.instNatCast n)
+                (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))))) →
+      @Ne Complex s (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne)) →
+        @Eq Real s.re
+          (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+            (@OfNat.ofNat Real (nat_lit 1) (@One.toOfNat1 Real Real.instOne))
+            (@OfNat.ofNat Real (nat_lit 2)
+              (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast RiemannHypothesis._proof_1)))
+@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+  (@OfNat.ofNat Real (nat_lit 1) (@One.toOfNat1 Real Real.instOne))
+  (@OfNat.ofNat Real (nat_lit 2) (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast ⋯)) : Real
+fun n =>
+  @HMul.hMul Complex Complex Complex (@instHMul Complex Complex.instMul)
+    (@Neg.neg Complex Complex.instNeg
+      (@OfNat.ofNat Complex (nat_lit 2) (@instOfNatAtLeastTwo Complex (nat_lit 2) Complex.instNatCast ⋯)))
+    (@HAdd.hAdd Complex Complex Complex (@instHAdd Complex Complex.instAdd) (@Nat.cast Complex Complex.instNatCast n)
+      (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))) : Nat → Complex

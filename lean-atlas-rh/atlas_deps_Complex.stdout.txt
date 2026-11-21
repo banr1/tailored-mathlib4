@@ -1,0 +1,14 @@
+warning: lean-atlas: repository has local changes:
+  /Users/banri/workspace/tailored-mathlib4/.lake/packages/lean-atlas
+info: lean-atlas.toml not found. Auto-detected from lakefile.lean: target="Mathlib", namespace="Mathlib"
+warning: lean-atlas: repository has local changes:
+  /Users/banri/workspace/tailored-mathlib4/.lake/packages/lean-atlas
+Build completed successfully (18293 jobs).
+  [38;2;99;112;255m◇ [38;2;119;104;255mL[38;2;130;100;255me[38;2;139;96;255ma[38;2;149;92;255mn [38;2;169;84;255mA[38;2;180;80;255mt[38;2;170;93;255ml[38;2;160;107;255ma[38;2;150;121;255ms [38;2;130;150;255mv[38;2;120;163;255m0[38;2;110;177;255m.[38;2;100;191;255m1[38;2;90;205;255m.[38;2;80;220;255m0[0m
+[2m    by Nyx Foundation[0m
+
+Analyzing dependencies for: Complex
+Loading Mathlib...
+Type: definition
+Found 1 definitions/theorems and 0 dependencies
+Output written to: lean-atlas-rh/Complex_deps.dot
