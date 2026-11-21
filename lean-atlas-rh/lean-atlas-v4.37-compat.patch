@@ -1,0 +1,22 @@
+diff --git a/LeanAtlas/Deps/Core.lean b/LeanAtlas/Deps/Core.lean
+index a8ccbaa..616506b 100644
+--- a/LeanAtlas/Deps/Core.lean
++++ b/LeanAtlas/Deps/Core.lean
+@@ -170,7 +170,7 @@ def findConstantsBySuffix (scope : ProjectScope) (env : Environment) (suffix : N
+   if env.find? suffix |>.isSome then
+     return #[suffix]
+   let mut result : Array Name := #[]
+-  for (name, _) in env.constants.map₁.toList do
++  for (name, _) in env.constants.map₁.toArray do
+     if isRelevantConstant scope env name && suffix.isSuffixOf name then
+       result := result.push name
+   return result
+@@ -178,7 +178,7 @@ def findConstantsBySuffix (scope : ProjectScope) (env : Environment) (suffix : N
+ /-- Get all project constants (filtered to relevant constants) -/
+ def getAllProjectConstants (scope : ProjectScope) (env : Environment) : Array Name := Id.run do
+   let mut result : Array Name := #[]
+-  for (name, _) in env.constants.map₁.toList do
++  for (name, _) in env.constants.map₁.toArray do
+     if isRelevantConstant scope env name then
+       result := result.push name
+   return result

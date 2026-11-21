@@ -1,0 +1,12 @@
+diff --git a/lakefile.lean b/lakefile.lean
+index a805c2013a..9c5bfbef79 100644
+--- a/lakefile.lean
++++ b/lakefile.lean
+@@ -17,6 +17,7 @@ require "leanprover-community" / "proofwidgets" @ git "main"
+ require "leanprover-community" / "importGraph" @ git "main"
+ require "leanprover-community" / "LeanSearchClient" @ git "main"
+ require "leanprover-community" / "plausible" @ git "main"
++require «lean-atlas» from git "https://github.com/NyxFoundation/lean-atlas" @ "main"
+ 
+ 
+ /-!
